@@ -1,13 +1,16 @@
-
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
+import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from '@/components/ui/carousel';
 import { useAuth } from '../contexts/AuthContext';
+import { useAutoSlide } from '../hooks/useAutoSlide';
 import { Bell, Eye, EyeOff, ArrowUp, CheckCircle, CreditCard, BarChart3, Database, Headphones, Globe, DollarSign, User } from 'lucide-react';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
   const [balanceVisible, setBalanceVisible] = useState(true);
+  const [api, setApi] = useState<CarouselApi>();
+
+  useAutoSlide(api, 4000);
 
   const quickActions = [
     { icon: <CreditCard className="w-8 h-8 text-purple-600" />, label: "Buy PAY ID" },
@@ -25,13 +28,19 @@ const Dashboard = () => {
       title: "Winners",
       subtitle: "of K20 airtime",
       names: ["Patience Ng'andwe", "Phiri John"],
-      image: "/lovable-uploads/00f34589-f4d0-44bf-9eb9-14cd644b9587.png"
+      image: "/lovable-uploads/7db94283-0659-4709-a9ca-075e35c706eb.png"
     },
     {
       title: "Transact & Win", 
       subtitle: "Locations: Cheers Gold Crest Mall | Chrismar Hotel | Hot Spot Pub & Grill",
       description: "All customers who pay with PayGo in store will stand a chance to win great prizes.",
-      image: "/lovable-uploads/5d0602d7-969f-4037-b1da-7ebc89886872.png"
+      image: "/lovable-uploads/c27b5632-5a9c-471e-b478-6c7fb61da4d6.png"
+    },
+    {
+      title: "Mobile Money",
+      subtitle: "AUGUST 27-28",
+      description: "Special promotion for mobile money transactions",
+      image: "/lovable-uploads/f326e837-824b-407f-a8e6-3f460a1006e3.png"
     }
   ];
 
@@ -109,27 +118,23 @@ const Dashboard = () => {
         {/* Promotions Carousel */}
         <div>
           <h3 className="text-lg font-bold text-gray-800 mb-4">Current Promotions</h3>
-          <Carousel className="w-full">
+          <Carousel 
+            className="w-full"
+            opts={{
+              align: "start",
+              loop: true,
+            }}
+            setApi={setApi}
+          >
             <CarouselContent>
               {promotions.map((promotion, index) => (
                 <CarouselItem key={index}>
-                  <div className="bg-gradient-to-r from-purple-600 to-orange-400 rounded-2xl p-6 text-white relative overflow-hidden min-h-[200px]">
-                    <div className="relative z-10">
-                      <h4 className="text-2xl font-bold mb-2">{promotion.title}</h4>
-                      <p className="text-lg mb-1">{promotion.subtitle}</p>
-                      {promotion.names && promotion.names.map((name, nameIndex) => (
-                        <p key={nameIndex} className="text-sm opacity-90 mb-1">{name}</p>
-                      ))}
-                      {promotion.description && (
-                        <p className="text-sm opacity-90 mt-2">{promotion.description}</p>
-                      )}
-                    </div>
-                    <div className="absolute right-4 top-4 w-20 h-20 bg-white/20 rounded-full"></div>
-                    <div className="absolute -right-4 -bottom-4 w-32 h-32 bg-white/10 rounded-full"></div>
-                    {/* Decorative elements */}
-                    <div className="absolute top-8 right-8 w-2 h-2 bg-yellow-300 rounded-full"></div>
-                    <div className="absolute top-16 right-16 w-1 h-1 bg-orange-300 rounded-full"></div>
-                    <div className="absolute bottom-12 right-12 w-3 h-3 bg-pink-300 rounded-full"></div>
+                  <div className="relative rounded-2xl overflow-hidden h-[240px]">
+                    <img 
+                      src={promotion.image} 
+                      alt={promotion.title}
+                      className="w-full h-full object-cover"
+                    />
                   </div>
                 </CarouselItem>
               ))}

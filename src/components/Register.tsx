@@ -25,8 +25,10 @@ const Register = ({ onSwitchToLogin }: RegisterProps) => {
     <div className="min-h-screen flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white text-2xl font-bold py-4 px-8 rounded-lg mb-8 mx-auto w-fit">
-            PAYGO
+          <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white text-2xl font-bold py-4 px-8 rounded-lg mb-8 mx-auto w-fit overflow-hidden relative">
+            <div className="animate-slide-in-right">
+              PAYGO
+            </div>
           </div>
         </div>
 
