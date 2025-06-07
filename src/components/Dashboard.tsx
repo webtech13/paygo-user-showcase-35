@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from '@/components/ui/carousel';
@@ -46,6 +47,13 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Sliding Banner */}
+      <div className="bg-red-500 text-white p-3 overflow-hidden">
+        <div className="animate-slide-banner whitespace-nowrap">
+          Dear user we're currently having issues with OPay bank kindly use another bank for your payment of pay Id
+        </div>
+      </div>
+
       {/* Header */}
       <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white p-6 rounded-b-3xl">
         <div className="flex items-center justify-between mb-6">

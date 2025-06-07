@@ -117,7 +117,36 @@
     }
   }
 
+  @keyframes slide-paygo {
+    0% {
+      transform: translateX(-100%);
+    }
+    50% {
+      transform: translateX(0);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes slide-banner {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
   .animate-slide-in-right {
     animation: slide-in-right 3s ease-in-out infinite;
+  }
+
+  .animate-slide-paygo {
+    animation: slide-paygo 4s ease-in-out infinite;
+  }
+
+  .animate-slide-banner {
+    animation: slide-banner 15s linear infinite;
   }
 }

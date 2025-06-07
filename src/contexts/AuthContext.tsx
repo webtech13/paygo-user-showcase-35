@@ -9,10 +9,12 @@ interface User {
 interface AuthContextType {
   user: User | null;
   login: (email: string, password: string) => boolean;
-  register: (name: string, email: string, password: string) => boolean;
+  register: (name: string, email: string, password: string) => { success: boolean; error?: string };
   logout: () => void;
   isOnboardingComplete: boolean;
+  isWelcomeComplete: boolean;
   completeOnboarding: () => void;
+  completeWelcome: () => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -20,21 +22,35 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
+  const [isWelcomeComplete, setIsWelcomeComplete] = useState(false);
 
   const register = (name: string, email: string, password: string) => {
-    // Simple registration logic
+    // Check if email already exists
+    const existingUsers = JSON.parse(localStorage.getItem('paygo_users') || '[]');
+    const emailExists = existingUsers.some((u: User) => u.email === email);
+    
+    if (emailExists) {
+      return { success: false, error: 'Email already exists, please login' };
+    }
+
+    // Register new user
     const newUser = { name, email };
+    existingUsers.push(newUser);
+    localStorage.setItem('paygo_users', JSON.stringify(existingUsers));
+    
     setUser(newUser);
+    setIsWelcomeComplete(false);
     setIsOnboardingComplete(false);
-    return true;
+    return { success: true };
   };
 
   const login = (email: string, password: string) => {
-    // Simple login logic - in real app, this would validate credentials
-    const userData = localStorage.getItem('paygo_user');
+    const existingUsers = JSON.parse(localStorage.getItem('paygo_users') || '[]');
+    const userData = existingUsers.find((u: User) => u.email === email);
+    
     if (userData) {
-      const user = JSON.parse(userData);
-      setUser(user);
+      setUser(userData);
+      setIsWelcomeComplete(true);
       setIsOnboardingComplete(true);
       return true;
     }
@@ -44,14 +60,15 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = () => {
     setUser(null);
     setIsOnboardingComplete(false);
-    localStorage.removeItem('paygo_user');
+    setIsWelcomeComplete(false);
   };
 
   const completeOnboarding = () => {
     setIsOnboardingComplete(true);
-    if (user) {
-      localStorage.setItem('paygo_user', JSON.stringify(user));
-    }
+  };
+
+  const completeWelcome = () => {
+    setIsWelcomeComplete(true);
   };
 
   return (
@@ -61,7 +78,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       register,
       logout,
       isOnboardingComplete,
-      completeOnboarding
+      isWelcomeComplete,
+      completeOnboarding,
+      completeWelcome
     }}>
       {children}
     </AuthContext.Provider>

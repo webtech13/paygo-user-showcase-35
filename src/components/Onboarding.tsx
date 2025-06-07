@@ -17,6 +17,10 @@ const Onboarding = () => {
     }
   };
 
+  const handleSkip = () => {
+    completeOnboarding();
+  };
+
   const steps = [
     {
       icon: <Gift className="w-12 h-12 text-purple-600" />,
@@ -52,7 +56,10 @@ const Onboarding = () => {
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white rounded-t-2xl p-6 relative">
-          <Button className="absolute top-4 right-4 bg-transparent hover:bg-white/10 p-2">
+          <Button 
+            onClick={handleSkip}
+            className="absolute top-4 right-4 bg-transparent hover:bg-white/10 p-2"
+          >
             <X className="w-6 h-6" />
           </Button>
           
@@ -89,16 +96,16 @@ const Onboarding = () => {
           {currentStep === totalSteps && (
             <div className="flex space-x-4 mb-6">
               <div className="flex-1 text-center">
-                <div className="w-12 h-12 bg-pink-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <div className="w-6 h-6 bg-pink-500 rounded-full"></div>
+                <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-orange-400 rounded-lg flex items-center justify-center mx-auto mb-2">
+                  <span className="text-white text-xs font-bold">Dashboard</span>
                 </div>
-                <p className="text-sm text-gray-600">Communities</p>
+                <p className="text-sm text-gray-600">Your Balance</p>
               </div>
               <div className="flex-1 text-center">
-                <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-2">
-                  <span className="text-green-600 font-bold">?</span>
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg flex items-center justify-center mx-auto mb-2">
+                  <span className="text-white text-xs font-bold">Actions</span>
                 </div>
-                <p className="text-sm text-gray-600">Support</p>
+                <p className="text-sm text-gray-600">Quick Actions</p>
               </div>
             </div>
           )}

@@ -12,12 +12,18 @@ const Register = ({ onSwitchToLogin }: RegisterProps) => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const { register } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
+    setError('');
+    
     if (name && email && password) {
-      register(name, email, password);
+      const result = register(name, email, password);
+      if (!result.success && result.error) {
+        setError(result.error);
+      }
     }
   };
 
@@ -26,7 +32,7 @@ const Register = ({ onSwitchToLogin }: RegisterProps) => {
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
           <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white text-2xl font-bold py-4 px-8 rounded-lg mb-8 mx-auto w-fit overflow-hidden relative">
-            <div className="animate-slide-in-right">
+            <div className="animate-slide-paygo">
               PAYGO
             </div>
           </div>
@@ -36,6 +42,12 @@ const Register = ({ onSwitchToLogin }: RegisterProps) => {
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
             Register to continue
           </h2>
+
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>

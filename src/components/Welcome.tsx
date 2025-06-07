@@ -2,12 +2,8 @@
 import { Button } from '@/components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
 
-interface WelcomeProps {
-  onContinue: () => void;
-}
-
-const Welcome = ({ onContinue }: WelcomeProps) => {
-  const { user } = useAuth();
+const Welcome = () => {
+  const { user, completeWelcome } = useAuth();
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-500 to-orange-400 flex items-center justify-center p-4">
@@ -32,7 +28,7 @@ const Welcome = ({ onContinue }: WelcomeProps) => {
           </p>
 
           <Button
-            onClick={onContinue}
+            onClick={completeWelcome}
             className="w-full bg-gradient-to-r from-purple-600 to-orange-400 text-white py-4 text-lg font-medium rounded-lg hover:opacity-90 transition-opacity"
           >
             Continue to Dashboard
