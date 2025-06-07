@@ -5,23 +5,58 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import { useAuth } from '../contexts/AuthContext';
 import { useAutoSlide } from '../hooks/useAutoSlide';
 import { Bell, Eye, EyeOff, ArrowUp, CheckCircle, CreditCard, BarChart3, Database, Headphones, Globe, DollarSign, User } from 'lucide-react';
+import BuyPayId from './BuyPayId';
+import Transfer from './Transfer';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
   const [balanceVisible, setBalanceVisible] = useState(true);
   const [api, setApi] = useState<CarouselApi>();
+  const [currentView, setCurrentView] = useState('dashboard');
 
   useAutoSlide(api, 4000);
 
   const quickActions = [
-    { icon: <CreditCard className="w-8 h-8 text-purple-600" />, label: "Buy PAY ID" },
-    { icon: <div className="w-8 h-8 bg-gray-600 rounded"></div>, label: "Watch" },
-    { icon: <BarChart3 className="w-8 h-8 text-blue-600" />, label: "Airtime" },
-    { icon: <Database className="w-8 h-8 text-red-600" />, label: "Data" },
-    { icon: <Headphones className="w-8 h-8 text-gray-600" />, label: "Support" },
-    { icon: <Globe className="w-8 h-8 text-blue-500" />, label: "Group" },
-    { icon: <DollarSign className="w-8 h-8 text-yellow-600" />, label: "Earn More" },
-    { icon: <User className="w-8 h-8 text-gray-600" />, label: "Profile" }
+    { 
+      icon: <CreditCard className="w-8 h-8 text-purple-600" />, 
+      label: "Buy PAY ID",
+      action: () => setCurrentView('buy-pay-id')
+    },
+    { 
+      icon: <div className="w-8 h-8 bg-gray-600 rounded"></div>, 
+      label: "Watch",
+      action: () => alert('This feature is coming soon!')
+    },
+    { 
+      icon: <BarChart3 className="w-8 h-8 text-blue-600" />, 
+      label: "Airtime",
+      action: () => alert('This feature is coming soon!')
+    },
+    { 
+      icon: <Database className="w-8 h-8 text-red-600" />, 
+      label: "Data",
+      action: () => alert('This feature is coming soon!')
+    },
+    { 
+      icon: <Headphones className="w-8 h-8 text-gray-600" />, 
+      label: "Support",
+      action: () => alert('This feature is coming soon!')
+    },
+    { 
+      icon: <Globe className="w-8 h-8 text-blue-500" />, 
+      label: "Group",
+      action: () => alert('This feature is coming soon!')
+    },
+    { 
+      icon: <DollarSign className="w-8 h-8 text-yellow-600" />, 
+      label: "Earn More",
+      action: () => alert('This feature is coming soon!')
+    },
+    { 
+      icon: <User className="w-8 h-8 text-gray-600" />, 
+      label: "Profile",
+      action: () => alert('This feature is coming soon!')
+    }
   ];
 
   const promotions = [
@@ -44,6 +79,14 @@ const Dashboard = () => {
       image: "/lovable-uploads/f326e837-824b-407f-a8e6-3f460a1006e3.png"
     }
   ];
+
+  if (currentView === 'buy-pay-id') {
+    return <BuyPayId onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  if (currentView === 'transfer') {
+    return <Transfer onBack={() => setCurrentView('dashboard')} />;
+  }
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -102,7 +145,10 @@ const Dashboard = () => {
               <CheckCircle className="w-5 h-5" />
               <span>Upgrade</span>
             </Button>
-            <Button className="flex-1 bg-white text-purple-600 hover:bg-gray-100 rounded-full py-3 flex items-center justify-center space-x-2">
+            <Button 
+              onClick={() => setCurrentView('transfer')}
+              className="flex-1 bg-white text-purple-600 hover:bg-gray-100 rounded-full py-3 flex items-center justify-center space-x-2"
+            >
               <ArrowUp className="w-5 h-5" />
               <span>Transfer</span>
             </Button>
@@ -115,9 +161,12 @@ const Dashboard = () => {
         <div className="grid grid-cols-4 gap-4 mb-8">
           {quickActions.map((action, index) => (
             <div key={index} className="text-center">
-              <div className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow mb-2">
+              <button 
+                onClick={action.action}
+                className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow mb-2 w-full"
+              >
                 {action.icon}
-              </div>
+              </button>
               <p className="text-xs text-gray-600">{action.label}</p>
             </div>
           ))}

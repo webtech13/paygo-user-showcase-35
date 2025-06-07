@@ -4,6 +4,7 @@ import React, { createContext, useContext, useState, ReactNode } from 'react';
 interface User {
   name: string;
   email: string;
+  balance?: number;
 }
 
 interface AuthContextType {
@@ -15,6 +16,7 @@ interface AuthContextType {
   isWelcomeComplete: boolean;
   completeOnboarding: () => void;
   completeWelcome: () => void;
+  updateBalance: (amount: number) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -34,7 +36,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     // Register new user
-    const newUser = { name, email };
+    const newUser = { name, email, balance: 180000 };
     existingUsers.push(newUser);
     localStorage.setItem('paygo_users', JSON.stringify(existingUsers));
     
@@ -49,7 +51,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const userData = existingUsers.find((u: User) => u.email === email);
     
     if (userData) {
-      setUser(userData);
+      setUser({ ...userData, balance: userData.balance || 180000 });
       setIsWelcomeComplete(true);
       setIsOnboardingComplete(true);
       return true;
@@ -71,6 +73,22 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsWelcomeComplete(true);
   };
 
+  const updateBalance = (amount: number) => {
+    if (user) {
+      const newBalance = (user.balance || 180000) - amount;
+      const updatedUser = { ...user, balance: newBalance };
+      setUser(updatedUser);
+      
+      // Update localStorage
+      const existingUsers = JSON.parse(localStorage.getItem('paygo_users') || '[]');
+      const userIndex = existingUsers.findIndex((u: User) => u.email === user.email);
+      if (userIndex !== -1) {
+        existingUsers[userIndex] = updatedUser;
+        localStorage.setItem('paygo_users', JSON.stringify(existingUsers));
+      }
+    }
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
@@ -80,7 +98,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       isOnboardingComplete,
       isWelcomeComplete,
       completeOnboarding,
-      completeWelcome
+      completeWelcome,
+      updateBalance
     }}>
       {children}
     </AuthContext.Provider>
