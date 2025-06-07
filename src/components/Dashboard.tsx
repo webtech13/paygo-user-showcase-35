@@ -70,13 +70,13 @@ const Dashboard = () => {
       title: "Transact & Win", 
       subtitle: "Locations: Cheers Gold Crest Mall | Chrismar Hotel | Hot Spot Pub & Grill",
       description: "All customers who pay with PayGo in store will stand a chance to win great prizes.",
-      image: "/lovable-uploads/c27b5632-5a9c-471e-b478-6c7fb61da4d6.png"
+      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&q=80&w=800&h=400"
     },
     {
       title: "Mobile Money",
       subtitle: "AUGUST 27-28",
       description: "Special promotion for mobile money transactions",
-      image: "/lovable-uploads/f326e837-824b-407f-a8e6-3f460a1006e3.png"
+      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800&h=400"
     }
   ];
 
@@ -128,9 +128,9 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-3xl font-bold">
-                {balanceVisible ? '₦180,000.00' : '₦***,***.00'}
+                {balanceVisible ? `₦${(user?.balance || 180000).toLocaleString()}.00` : '₦***,***.00'}
               </h2>
-              <p className="text-sm opacity-90">Weekly Rewards: ₦180,000.00</p>
+              <p className="text-sm opacity-90">Weekly Rewards: ₦{(user?.balance || 180000).toLocaleString()}.00</p>
             </div>
             <Button
               onClick={() => setBalanceVisible(!balanceVisible)}

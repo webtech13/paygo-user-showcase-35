@@ -11,12 +11,21 @@ interface LoginProps {
 const Login = ({ onSwitchToRegister }: LoginProps) => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
   const { login } = useAuth();
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (email && password) {
-      login(email, password);
+    setError('');
+    
+    if (!email || !password) {
+      setError('Please enter both email and password');
+      return;
+    }
+    
+    const loginSuccess = login(email, password);
+    if (!loginSuccess) {
+      setError('Invalid email or password. Please check your credentials.');
     }
   };
 
@@ -31,6 +40,12 @@ const Login = ({ onSwitchToRegister }: LoginProps) => {
           <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
             Login to continue
           </h2>
+
+          {error && (
+            <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+              {error}
+            </div>
+          )}
 
           <form onSubmit={handleSubmit} className="space-y-6">
             <div>

@@ -1,5 +1,5 @@
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, Copy } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -7,10 +7,35 @@ import { useAuth } from '../contexts/AuthContext';
 const BuyPayId = ({ onBack }: { onBack: () => void }) => {
   const { user } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
+  const [countdown, setCountdown] = useState(10);
+  const [progress, setProgress] = useState(0);
   const [formData, setFormData] = useState({
     fullName: '',
     email: user?.email || ''
   });
+
+  // Countdown for step 2
+  useEffect(() => {
+    if (currentStep === 2 && countdown > 0) {
+      const timer = setTimeout(() => {
+        setCountdown(countdown - 1);
+        setProgress((10 - countdown + 1) / 10 * 100);
+      }, 1000);
+      return () => clearTimeout(timer);
+    } else if (currentStep === 2 && countdown === 0) {
+      setCurrentStep(3);
+    }
+  }, [currentStep, countdown]);
+
+  // Auto-redirect for step 4
+  useEffect(() => {
+    if (currentStep === 4) {
+      const timer = setTimeout(() => {
+        setCurrentStep(5);
+      }, 8000);
+      return () => clearTimeout(timer);
+    }
+  }, [currentStep]);
 
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
@@ -69,15 +94,13 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
             <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin"></div>
             <h3 className="text-2xl font-bold text-gray-800">Preparing Payment Account</h3>
             <p className="text-gray-600">Please wait while we set up your payment...</p>
+            <div className="text-3xl font-bold text-purple-600">{countdown}</div>
             <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-purple-600 h-2 rounded-full w-1/3 animate-pulse"></div>
+              <div 
+                className="bg-purple-600 h-2 rounded-full transition-all duration-1000" 
+                style={{ width: `${progress}%` }}
+              ></div>
             </div>
-            <Button
-              onClick={() => setCurrentStep(3)}
-              className="mt-8 bg-purple-600 hover:bg-purple-700 text-white px-8 py-2"
-            >
-              Continue
-            </Button>
           </div>
         );
 
@@ -167,12 +190,6 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
             </div>
             <p className="text-sm text-gray-500">This may take a few moments</p>
             <p className="text-sm text-gray-500">Please do not close this page</p>
-            <Button
-              onClick={() => setCurrentStep(5)}
-              className="mt-8 bg-orange-500 hover:bg-orange-600 text-white px-8 py-2"
-            >
-              Continue
-            </Button>
           </div>
         );
 

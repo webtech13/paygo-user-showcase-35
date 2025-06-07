@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
-import { X, Gift, CreditCard, Phone, Wallet, Zap } from 'lucide-react';
+import { X, Gift, CreditCard, Phone, Wallet, Zap, BarChart3, User } from 'lucide-react';
 
 const Onboarding = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -44,8 +44,8 @@ const Onboarding = () => {
     },
     {
       icon: <Zap className="w-12 h-12 text-orange-600" />,
-      title: "Earn More",
-      description: "Explore our app to discover ways to earn more! Refer friends to earn ₦500 per referral, join our communities, and take advantage of special promotions."
+      title: "Dashboard Preview",
+      description: "Here's what your dashboard will look like! Manage your balance, make transfers, buy services, and explore all the features PayGo has to offer."
     }
   ];
 
@@ -94,18 +94,37 @@ const Onboarding = () => {
           </p>
 
           {currentStep === totalSteps && (
-            <div className="flex space-x-4 mb-6">
-              <div className="flex-1 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-purple-600 to-orange-400 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-white text-xs font-bold">Dashboard</span>
+            <div className="mb-6 space-y-4">
+              {/* Dashboard Preview */}
+              <div className="bg-gray-50 rounded-lg p-4">
+                <div className="flex items-center justify-between mb-3">
+                  <div className="flex items-center space-x-2">
+                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
+                      <span className="text-white text-xs font-bold">P</span>
+                    </div>
+                    <span className="text-sm font-medium">Your Balance</span>
+                  </div>
+                  <span className="text-lg font-bold">₦180,000</span>
                 </div>
-                <p className="text-sm text-gray-600">Your Balance</p>
-              </div>
-              <div className="flex-1 text-center">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-green-500 rounded-lg flex items-center justify-center mx-auto mb-2">
-                  <span className="text-white text-xs font-bold">Actions</span>
+                
+                <div className="grid grid-cols-3 gap-2 mb-3">
+                  <div className="bg-white rounded p-2 flex flex-col items-center">
+                    <CreditCard className="w-4 h-4 text-purple-600 mb-1" />
+                    <span className="text-xs">PAY ID</span>
+                  </div>
+                  <div className="bg-white rounded p-2 flex flex-col items-center">
+                    <BarChart3 className="w-4 h-4 text-blue-600 mb-1" />
+                    <span className="text-xs">Airtime</span>
+                  </div>
+                  <div className="bg-white rounded p-2 flex flex-col items-center">
+                    <User className="w-4 h-4 text-gray-600 mb-1" />
+                    <span className="text-xs">Profile</span>
+                  </div>
                 </div>
-                <p className="text-sm text-gray-600">Quick Actions</p>
+
+                <div className="bg-gradient-to-r from-purple-600 to-orange-400 rounded h-16 flex items-center justify-center">
+                  <span className="text-white text-xs">Quick Actions & Promotions</span>
+                </div>
               </div>
             </div>
           )}

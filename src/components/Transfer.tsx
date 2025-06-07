@@ -5,7 +5,7 @@ import { ArrowLeft, ChevronDown } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const Transfer = ({ onBack }: { onBack: () => void }) => {
-  const { user } = useAuth();
+  const { user, updateBalance } = useAuth();
   const [currentStep, setCurrentStep] = useState(1);
   const [formData, setFormData] = useState({
     accountName: '',
@@ -23,7 +23,28 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
     'Keystone Bank', 'Polaris Bank', 'Providus Bank', 'Skye Bank', 'Stanbic IBTC Bank',
     'Standard Chartered Bank', 'Sterling Bank', 'Union Bank', 'United Bank for Africa',
     'Unity Bank', 'Wema Bank', 'Zenith Bank', 'ALAT by WEMA', 'Carbon', 'Kuda Bank',
-    'Opay', 'PalmPay', 'Rubies Bank', 'SunTrust Bank', 'Taj Bank', 'Titan Trust Bank'
+    'Opay', 'PalmPay', 'Rubies Bank', 'SunTrust Bank', 'Taj Bank', 'Titan Trust Bank',
+    'Moniepoint', 'VFD Microfinance Bank', 'Sparkle Microfinance Bank', 'AB Microfinance Bank',
+    'LAPO Microfinance Bank', 'Accion Microfinance Bank', 'Fortis Microfinance Bank', 
+    'Renmoney Microfinance Bank', 'FairMoney Microfinance Bank', 'Eyowo', 'GoMoney',
+    'Mintyn', 'Flutterwave Barter', 'Chipper Cash', 'Piggyvest', 'Cowrywise',
+    'Bamboo', 'Risevest', 'Trove Finance', 'i-Invest', 'Chaka', 'ARM Investment',
+    'CardinalStone Partners', 'Meristem Securities', 'United Capital', 'PAC Microfinance Bank',
+    'NPF Microfinance Bank', 'Mainstreet Microfinance Bank', 'Beta Microfinance Bank',
+    'QuickFund Microfinance Bank', 'Mutual Benefits Microfinance Bank', 'Page Microfinance Bank',
+    'Advans Microfinance Bank', 'Eko Microfinance Bank', 'Boctrust Microfinance Bank',
+    'Stellas Microfinance Bank', 'CIT Microfinance Bank', 'Covenant Microfinance Bank',
+    'Firstmonie Wallet', 'Paga', 'Flutterwave', 'Paystack', 'Interswitch', 'Remita',
+    'Verve', 'eTranzact', 'SystemSpecs', 'TeamApt', 'Appzone', 'Unified Payment',
+    'ReadyCash', 'SunTrust Mortgage Bank', 'Imperial Homes Mortgage Bank', 'Abbey Mortgage Bank',
+    'Haggai Mortgage Bank', 'Refuge Mortgage Bank', 'Platinum Mortgage Bank', 'AG Mortgage Bank',
+    'Gateway Mortgage Bank', 'First Generation Mortgage Bank', 'Brent Associate Mortgage Bank',
+    'Jubilee-Life Mortgage Bank', 'New Prudential Bank', 'Globus Bank', 'Parallex Bank',
+    'Hope Payment Service Bank', 'Moniepoint Microfinance Bank', 'SmartCash Payment Service Bank',
+    'Xpress Payments Service Bank', '9Payment Service Bank', 'Flutterwave Payment Technology Limited',
+    'Paystack Payment Limited', 'TeamApt Limited', 'Carbon Microfinance Bank', 'Paga Technologies Limited',
+    'Pockets Microfinance Bank', 'Raven Bank Microfinance Bank', 'Grey Finance Limited', 'Brass Microfinance Bank',
+    'Mkobo Microfinance Bank', 'Fint Microfinance Bank', 'Hackman Microfinance Bank', 'Bowen Microfinance Bank'
   ];
 
   const handleSubmit = () => {
@@ -31,8 +52,16 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
       alert('Invalid PAY ID. Transfer not allowed.');
       return;
     }
+    
+    const withdrawalAmount = parseFloat(formData.amount);
+    if (withdrawalAmount <= 0 || withdrawalAmount > (user?.balance || 0)) {
+      alert('Invalid withdrawal amount.');
+      return;
+    }
+
     setProcessing(true);
     setTimeout(() => {
+      updateBalance(withdrawalAmount);
       setCurrentStep(2);
       setProcessing(false);
     }, 7000);
@@ -135,7 +164,7 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
             </div>
 
             <div className="text-lg font-bold text-gray-800">
-              Available Balance: ₦180,000.00
+              Available Balance: ₦{(user?.balance || 180000).toLocaleString()}.00
             </div>
 
             <Button
