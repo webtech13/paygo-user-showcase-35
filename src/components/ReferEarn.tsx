@@ -173,7 +173,7 @@ const ReferEarn = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (pa
                   onChange={(e) => setPayId(e.target.value)}
                   className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
                 />
-                <p className="text-sm text-gray-500 mt-1">Required PAY ID: paygo238</p>
+                <p className="text-sm text-gray-500 mt-1">Required PAY ID:</p>
               </div>
             </div>
 
