@@ -2,7 +2,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
-import { X, Gift, CreditCard, Phone, Wallet, Zap, BarChart3, User } from 'lucide-react';
+import { X, Gift, CreditCard, Phone, Wallet, Zap, BarChart3, User, Bell, Eye, CheckCircle, ArrowUp } from 'lucide-react';
 
 const Onboarding = () => {
   const [currentStep, setCurrentStep] = useState(1);
@@ -54,17 +54,68 @@ const Onboarding = () => {
   return (
     <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-500 to-orange-400 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white rounded-t-2xl p-6 relative">
+        {/* Header with Dashboard Background for Step 5 */}
+        <div className={`text-white rounded-t-2xl p-6 relative ${
+          currentStep === 5 
+            ? 'bg-gray-50 text-gray-800' 
+            : 'bg-gradient-to-r from-purple-600 to-orange-400'
+        }`}>
           <Button 
             onClick={handleSkip}
-            className="absolute top-4 right-4 bg-transparent hover:bg-white/10 p-2"
+            className={`absolute top-4 right-4 p-2 ${
+              currentStep === 5 
+                ? 'bg-gray-200 hover:bg-gray-300 text-gray-800' 
+                : 'bg-transparent hover:bg-white/10 text-white'
+            }`}
           >
             <X className="w-6 h-6" />
           </Button>
           
-          <h2 className="text-2xl font-bold mb-2">Welcome to PayGo, {user?.name}!</h2>
-          <p className="text-sm opacity-90 mb-4">Step {currentStep} of {totalSteps}</p>
+          {currentStep === 5 ? (
+            // Dashboard Preview Header
+            <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white p-4 rounded-lg -m-6 mb-4">
+              <div className="flex items-center justify-between mb-4">
+                <div className="flex items-center space-x-3">
+                  <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center">
+                    <span className="text-purple-600 font-bold text-sm">
+                      {user?.name?.charAt(0).toUpperCase()}
+                    </span>
+                  </div>
+                  <div>
+                    <h1 className="text-lg font-bold">Hi, {user?.name} 👋</h1>
+                    <p className="text-xs opacity-90">Welcome back!</p>
+                  </div>
+                </div>
+                <Bell className="w-5 h-5" />
+              </div>
+
+              <div className="bg-white/10 backdrop-blur-sm rounded-xl p-4">
+                <p className="text-xs opacity-90 mb-1">Your Balance</p>
+                <div className="flex items-center justify-between">
+                  <div>
+                    <h2 className="text-xl font-bold">₦180,000.00</h2>
+                    <p className="text-xs opacity-90">Weekly Rewards: ₦180,000.00</p>
+                  </div>
+                  <Eye className="w-4 h-4" />
+                </div>
+                <div className="flex space-x-2 mt-3">
+                  <Button className="flex-1 bg-white text-purple-600 rounded-full py-2 text-xs flex items-center justify-center space-x-1">
+                    <CheckCircle className="w-3 h-3" />
+                    <span>Upgrade</span>
+                  </Button>
+                  <Button className="flex-1 bg-white text-purple-600 rounded-full py-2 text-xs flex items-center justify-center space-x-1">
+                    <ArrowUp className="w-3 h-3" />
+                    <span>Transfer</span>
+                  </Button>
+                </div>
+              </div>
+            </div>
+          ) : (
+            <div>
+              <h2 className="text-2xl font-bold mb-2">Welcome to PayGo, {user?.name}!</h2>
+              <p className="text-sm opacity-90 mb-4">Step {currentStep} of {totalSteps}</p>
+            </div>
+          )}
           
           {/* Progress bar */}
           <div className="flex space-x-1">
@@ -72,7 +123,9 @@ const Onboarding = () => {
               <div
                 key={i}
                 className={`flex-1 h-2 rounded-full ${
-                  i < currentStep ? 'bg-white' : 'bg-white/30'
+                  i < currentStep 
+                    ? (currentStep === 5 ? 'bg-purple-600' : 'bg-white') 
+                    : (currentStep === 5 ? 'bg-gray-300' : 'bg-white/30')
                 }`}
               />
             ))}
@@ -93,21 +146,11 @@ const Onboarding = () => {
             {currentStepData.description}
           </p>
 
-          {currentStep === totalSteps && (
+          {currentStep === 5 && (
             <div className="mb-6 space-y-4">
-              {/* Dashboard Preview */}
+              {/* Quick Actions Preview */}
               <div className="bg-gray-50 rounded-lg p-4">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center space-x-2">
-                    <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center">
-                      <span className="text-white text-xs font-bold">P</span>
-                    </div>
-                    <span className="text-sm font-medium">Your Balance</span>
-                  </div>
-                  <span className="text-lg font-bold">₦180,000</span>
-                </div>
-                
-                <div className="grid grid-cols-3 gap-2 mb-3">
+                <div className="grid grid-cols-4 gap-2 mb-3">
                   <div className="bg-white rounded p-2 flex flex-col items-center">
                     <CreditCard className="w-4 h-4 text-purple-600 mb-1" />
                     <span className="text-xs">PAY ID</span>
@@ -117,13 +160,17 @@ const Onboarding = () => {
                     <span className="text-xs">Airtime</span>
                   </div>
                   <div className="bg-white rounded p-2 flex flex-col items-center">
+                    <div className="w-4 h-4 bg-red-600 rounded mb-1"></div>
+                    <span className="text-xs">Data</span>
+                  </div>
+                  <div className="bg-white rounded p-2 flex flex-col items-center">
                     <User className="w-4 h-4 text-gray-600 mb-1" />
                     <span className="text-xs">Profile</span>
                   </div>
                 </div>
 
                 <div className="bg-gradient-to-r from-purple-600 to-orange-400 rounded h-16 flex items-center justify-center">
-                  <span className="text-white text-xs">Quick Actions & Promotions</span>
+                  <span className="text-white text-xs">Current Promotions</span>
                 </div>
               </div>
             </div>

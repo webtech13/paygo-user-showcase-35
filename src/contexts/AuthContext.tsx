@@ -7,8 +7,18 @@ interface User {
   balance?: number;
 }
 
+interface Transaction {
+  type: string;
+  amount: number;
+  network?: string;
+  phoneNumber?: string;
+  plan?: any;
+  date: string;
+}
+
 interface AuthContextType {
   user: User | null;
+  transactions: Transaction[];
   login: (email: string, password: string) => boolean;
   register: (name: string, email: string, password: string) => { success: boolean; error?: string };
   logout: () => void;
@@ -17,12 +27,14 @@ interface AuthContextType {
   completeOnboarding: () => void;
   completeWelcome: () => void;
   updateBalance: (amount: number) => void;
+  addTransaction: (transaction: Transaction) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
+  const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
   const [isWelcomeComplete, setIsWelcomeComplete] = useState(false);
 
@@ -41,6 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     localStorage.setItem('paygo_users', JSON.stringify(existingUsers));
     
     setUser(newUser);
+    setTransactions([]);
     setIsWelcomeComplete(false);
     setIsOnboardingComplete(false);
     return { success: true };
@@ -52,6 +65,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     
     if (userData) {
       setUser({ ...userData, balance: userData.balance || 180000 });
+      const userTransactions = JSON.parse(localStorage.getItem(`paygo_transactions_${email}`) || '[]');
+      setTransactions(userTransactions);
       setIsWelcomeComplete(true);
       setIsOnboardingComplete(true);
       return true;
@@ -61,6 +76,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = () => {
     setUser(null);
+    setTransactions([]);
     setIsOnboardingComplete(false);
     setIsWelcomeComplete(false);
   };
@@ -89,9 +105,18 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const addTransaction = (transaction: Transaction) => {
+    if (user) {
+      const newTransactions = [...transactions, transaction];
+      setTransactions(newTransactions);
+      localStorage.setItem(`paygo_transactions_${user.email}`, JSON.stringify(newTransactions));
+    }
+  };
+
   return (
     <AuthContext.Provider value={{
       user,
+      transactions,
       login,
       register,
       logout,
@@ -99,7 +124,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       isWelcomeComplete,
       completeOnboarding,
       completeWelcome,
-      updateBalance
+      updateBalance,
+      addTransaction
     }}>
       {children}
     </AuthContext.Provider>

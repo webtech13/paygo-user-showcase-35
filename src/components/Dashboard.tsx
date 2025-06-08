@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from '@/components/ui/carousel';
@@ -7,6 +6,14 @@ import { useAutoSlide } from '../hooks/useAutoSlide';
 import { Bell, Eye, EyeOff, ArrowUp, CheckCircle, CreditCard, BarChart3, Database, Headphones, Globe, DollarSign, User } from 'lucide-react';
 import BuyPayId from './BuyPayId';
 import Transfer from './Transfer';
+import Airtime from './Airtime';
+import Data from './Data';
+import Support from './Support';
+import EarnMore from './EarnMore';
+import Profile from './Profile';
+import ProfileInfo from './ProfileInfo';
+import About from './About';
+import TransactionHistory from './TransactionHistory';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -25,22 +32,22 @@ const Dashboard = () => {
     { 
       icon: <div className="w-8 h-8 bg-gray-600 rounded"></div>, 
       label: "Watch",
-      action: () => alert('This feature is coming soon!')
+      action: () => window.open('https://t.me/bluepay247', '_blank')
     },
     { 
       icon: <BarChart3 className="w-8 h-8 text-blue-600" />, 
       label: "Airtime",
-      action: () => alert('This feature is coming soon!')
+      action: () => setCurrentView('airtime')
     },
     { 
       icon: <Database className="w-8 h-8 text-red-600" />, 
       label: "Data",
-      action: () => alert('This feature is coming soon!')
+      action: () => setCurrentView('data')
     },
     { 
       icon: <Headphones className="w-8 h-8 text-gray-600" />, 
       label: "Support",
-      action: () => alert('This feature is coming soon!')
+      action: () => setCurrentView('support')
     },
     { 
       icon: <Globe className="w-8 h-8 text-blue-500" />, 
@@ -50,12 +57,12 @@ const Dashboard = () => {
     { 
       icon: <DollarSign className="w-8 h-8 text-yellow-600" />, 
       label: "Earn More",
-      action: () => alert('This feature is coming soon!')
+      action: () => setCurrentView('earn-more')
     },
     { 
       icon: <User className="w-8 h-8 text-gray-600" />, 
       label: "Profile",
-      action: () => alert('This feature is coming soon!')
+      action: () => setCurrentView('profile')
     }
   ];
 
@@ -88,6 +95,41 @@ const Dashboard = () => {
     return <Transfer onBack={() => setCurrentView('dashboard')} />;
   }
 
+  if (currentView === 'airtime') {
+    return <Airtime onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  if (currentView === 'data') {
+    return <Data onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  if (currentView === 'support') {
+    return <Support onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  if (currentView === 'earn-more') {
+    return <EarnMore onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  if (currentView === 'profile') {
+    return <Profile 
+      onBack={() => setCurrentView('dashboard')} 
+      onNavigate={(page) => setCurrentView(page)}
+    />;
+  }
+
+  if (currentView === 'profile-info') {
+    return <ProfileInfo onBack={() => setCurrentView('profile')} />;
+  }
+
+  if (currentView === 'about') {
+    return <About onBack={() => setCurrentView('profile')} />;
+  }
+
+  if (currentView === 'transaction-history') {
+    return <TransactionHistory onBack={() => setCurrentView('dashboard')} />;
+  }
+
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sliding Banner */}
@@ -112,7 +154,12 @@ const Dashboard = () => {
             </div>
           </div>
           <div className="flex items-center space-x-3">
-            <Bell className="w-6 h-6" />
+            <Button 
+              onClick={() => setCurrentView('transaction-history')}
+              className="bg-white/20 hover:bg-white/30 p-2 rounded-full"
+            >
+              <Bell className="w-6 h-6" />
+            </Button>
             <Button 
               onClick={logout}
               className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm"
