@@ -39,7 +39,7 @@ const Upgrade = ({ onBack }: UpgradeProps) => {
     if (currentView === 'confirming') {
       const timer = setTimeout(() => {
         setCurrentView('failed');
-      }, 8000);
+      }, 10000); // 10 seconds countdown with progress bar
       return () => clearTimeout(timer);
     }
   }, [currentView]);
@@ -213,7 +213,10 @@ const Upgrade = ({ onBack }: UpgradeProps) => {
           <h3 className="text-2xl font-bold">Confirming Your Payment</h3>
           <p>Please wait while we verify your transaction...</p>
           <div className="w-full bg-white bg-opacity-20 rounded-full h-2 max-w-md mx-auto">
-            <div className="bg-white h-2 rounded-full w-2/3 animate-pulse"></div>
+            <div 
+              className="bg-white h-2 rounded-full transition-all duration-1000" 
+              style={{ width: `${countdown * 10}%` }}
+            ></div>
           </div>
           <p className="text-sm opacity-90">This may take a few moments</p>
           <p className="text-sm opacity-90">Please do not close this page</p>

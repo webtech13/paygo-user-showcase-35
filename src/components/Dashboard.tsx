@@ -16,6 +16,7 @@ import About from './About';
 import TransactionHistory from './TransactionHistory';
 import ReferEarn from './ReferEarn';
 import Upgrade from './Upgrade';
+import JoinCommunities from './JoinCommunities';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -54,7 +55,7 @@ const Dashboard = () => {
     { 
       icon: <Globe className="w-8 h-8 text-blue-500" />, 
       label: "Group",
-      action: () => alert('This feature is coming soon!')
+      action: () => setCurrentView('join-communities')
     },
     { 
       icon: <DollarSign className="w-8 h-8 text-yellow-600" />, 
@@ -73,19 +74,19 @@ const Dashboard = () => {
       title: "Winners",
       subtitle: "of K20 airtime",
       names: ["Patience Ng'andwe", "Phiri John"],
-      image: "https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&q=80&w=800&h=400"
+      image: "/lovable-uploads/7799d034-113d-44f2-867c-2a4cb8418056.png"
     },
     {
-      title: "Transact & Win", 
-      subtitle: "Locations: Cheers Gold Crest Mall | Chrismar Hotel | Hot Spot Pub & Grill",
-      description: "All customers who pay with PayGo in store will stand a chance to win great prizes.",
-      image: "https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&q=80&w=800&h=400"
+      title: "PayGo",
+      subtitle: "The Best Website",
+      description: "PayGo - The best website paying in Nigeria",
+      image: "/lovable-uploads/d07504be-1a45-4e83-804c-99c950bde186.png"
     },
     {
       title: "Mobile Money",
       subtitle: "AUGUST 27-28",
       description: "Special promotion for mobile money transactions",
-      image: "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?auto=format&fit=crop&q=80&w=800&h=400"
+      image: "/lovable-uploads/bb43284d-6c1e-4357-bf8b-b2b3ef8d309c.png"
     }
   ];
 
@@ -141,6 +142,10 @@ const Dashboard = () => {
 
   if (currentView === 'upgrade') {
     return <Upgrade onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  if (currentView === 'join-communities') {
+    return <JoinCommunities onBack={() => setCurrentView('dashboard')} />;
   }
 
   return (

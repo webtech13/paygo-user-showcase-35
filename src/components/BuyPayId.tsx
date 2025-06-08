@@ -231,7 +231,10 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
             <h3 className="text-2xl font-bold text-gray-800">Confirming Your Payment</h3>
             <p className="text-gray-600">Please wait while we verify your transaction...</p>
             <div className="w-full bg-gray-200 rounded-full h-2">
-              <div className="bg-orange-500 h-2 rounded-full w-2/3 animate-pulse"></div>
+              <div 
+                className="bg-orange-500 h-2 rounded-full transition-all duration-1000" 
+                style={{ width: `${(8 - (countdown * 0.8)) / 8 * 100}%` }}
+              ></div>
             </div>
             <p className="text-sm text-gray-500">This may take a few moments</p>
             <p className="text-sm text-gray-500">Please do not close this page</p>

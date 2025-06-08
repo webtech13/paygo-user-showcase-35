@@ -21,10 +21,10 @@ const ReferEarn = ({ onBack, onNavigate }: ReferEarnProps) => {
     payId: ''
   });
 
-  // Mock referral data
-  const referralBalance = 5000;
-  const totalReferrals = 1;
-  const totalEarnings = 5000;
+  // Mock referral data - starts at 0 unless user has referrals
+  const referralBalance = 0; // Changed from 5000 to 0
+  const totalReferrals = 0; // Changed from 1 to 0
+  const totalEarnings = 0; // Changed from 5000 to 0
   const referralLink = 'https://bestearnig9jaupdatespaygo.netlify.app';
 
   useEffect(() => {
@@ -72,7 +72,7 @@ const ReferEarn = ({ onBack, onNavigate }: ReferEarnProps) => {
         <div className="p-6 space-y-6">
           <div>
             <p className="text-purple-600 text-sm">Available Balance</p>
-            <h2 className="text-4xl font-bold text-purple-600">₦{referralBalance.toLocaleString()}</h2>
+            <h2 className="text-4xl font-bold text-purple-600">₦{referralBalance.toLocaleString()}.00</h2>
           </div>
 
           <div className="space-y-4">
@@ -216,7 +216,7 @@ const ReferEarn = ({ onBack, onNavigate }: ReferEarnProps) => {
         {/* Referral Balance */}
         <div className="bg-gradient-to-r from-purple-600 to-purple-700 rounded-lg p-6 text-white">
           <h3 className="text-lg font-medium mb-2">Referral Balance</h3>
-          <h2 className="text-4xl font-bold mb-4">₦{referralBalance.toLocaleString()}</h2>
+          <h2 className="text-4xl font-bold mb-4">₦{referralBalance.toLocaleString()}.00</h2>
           <Button
             onClick={() => setCurrentView('withdraw')}
             className="w-full bg-white text-purple-600 hover:bg-gray-100 py-3 rounded-lg font-medium"
@@ -274,7 +274,7 @@ const ReferEarn = ({ onBack, onNavigate }: ReferEarnProps) => {
             <p className="text-gray-600">Total Referrals</p>
           </div>
           <div className="text-center">
-            <h4 className="text-3xl font-bold text-purple-600">₦{totalEarnings.toLocaleString()}</h4>
+            <h4 className="text-3xl font-bold text-purple-600">₦{totalEarnings.toLocaleString()}.00</h4>
             <p className="text-gray-600">Total Earnings</p>
           </div>
         </div>
