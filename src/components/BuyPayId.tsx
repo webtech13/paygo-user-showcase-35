@@ -28,13 +28,19 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
     }
   }, [currentStep, countdown]);
 
-  // Auto-redirect for step 4
+  // Auto-redirect for step 4 with proper countdown
   useEffect(() => {
     if (currentStep === 4) {
-      const timer = setTimeout(() => {
-        setCurrentStep(5);
-      }, 8000);
-      return () => clearTimeout(timer);
+      let countdownTimer = 10;
+      const timer = setInterval(() => {
+        countdownTimer--;
+        setProgress((10 - countdownTimer) / 10 * 100);
+        if (countdownTimer <= 0) {
+          clearInterval(timer);
+          setCurrentStep(5);
+        }
+      }, 1000);
+      return () => clearInterval(timer);
     }
   }, [currentStep]);
 
@@ -233,7 +239,7 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
             <div className="w-full bg-gray-200 rounded-full h-2">
               <div 
                 className="bg-orange-500 h-2 rounded-full transition-all duration-1000" 
-                style={{ width: `${(8 - (countdown * 0.8)) / 8 * 100}%` }}
+                style={{ width: `${progress}%` }}
               ></div>
             </div>
             <p className="text-sm text-gray-500">This may take a few moments</p>

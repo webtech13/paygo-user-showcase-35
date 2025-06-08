@@ -23,8 +23,22 @@ const Dashboard = () => {
   const [balanceVisible, setBalanceVisible] = useState(true);
   const [api, setApi] = useState<CarouselApi>();
   const [currentView, setCurrentView] = useState('dashboard');
+  const [showLogoutDialog, setShowLogoutDialog] = useState(false);
 
   useAutoSlide(api, 4000);
+
+  const handleLogout = () => {
+    setShowLogoutDialog(true);
+  };
+
+  const confirmLogout = () => {
+    logout();
+    setShowLogoutDialog(false);
+  };
+
+  const cancelLogout = () => {
+    setShowLogoutDialog(false);
+  };
 
   const quickActions = [
     { 
@@ -179,7 +193,7 @@ const Dashboard = () => {
               <Bell className="w-6 h-6" />
             </Button>
             <Button 
-              onClick={logout}
+              onClick={handleLogout}
               className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm"
             >
               Logout
@@ -269,6 +283,30 @@ const Dashboard = () => {
           </Carousel>
         </div>
       </div>
+
+      {/* Logout Confirmation Dialog */}
+      {showLogoutDialog && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-lg p-6 w-full max-w-sm">
+            <h3 className="text-lg font-bold text-gray-800 mb-4">Confirm Logout</h3>
+            <p className="text-gray-600 mb-6">Are you sure you want to logout?</p>
+            <div className="flex space-x-3">
+              <Button
+                onClick={cancelLogout}
+                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg"
+              >
+                No
+              </Button>
+              <Button
+                onClick={confirmLogout}
+                className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg"
+              >
+                Yes
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

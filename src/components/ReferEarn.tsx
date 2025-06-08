@@ -118,7 +118,7 @@ const ReferEarn = ({ onBack, onNavigate }: ReferEarnProps) => {
               <label className="text-gray-700 font-medium">PAY ID</label>
               <input
                 type="text"
-                placeholder="Enter your PAY ID (paygo238)"
+                placeholder="Enter your PAY ID"
                 value={withdrawData.payId}
                 onChange={(e) => setWithdrawData({...withdrawData, payId: e.target.value})}
                 className="w-full p-4 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 mt-2"
