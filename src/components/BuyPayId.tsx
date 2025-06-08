@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Copy } from 'lucide-react';
+import { ArrowLeft, Copy, X } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const BuyPayId = ({ onBack }: { onBack: () => void }) => {
@@ -9,6 +9,7 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
   const [currentStep, setCurrentStep] = useState(1);
   const [countdown, setCountdown] = useState(10);
   const [progress, setProgress] = useState(0);
+  const [showServiceNotice, setShowServiceNotice] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
     email: user?.email || ''
@@ -23,7 +24,7 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
       }, 1000);
       return () => clearTimeout(timer);
     } else if (currentStep === 2 && countdown === 0) {
-      setCurrentStep(3);
+      setShowServiceNotice(true);
     }
   }, [currentStep, countdown]);
 
@@ -40,6 +41,50 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
   const handleCopy = (text: string) => {
     navigator.clipboard.writeText(text);
   };
+
+  const handleServiceNoticeClose = () => {
+    setShowServiceNotice(false);
+    setCurrentStep(3);
+  };
+
+  const renderServiceNotice = () => (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+      <div className="bg-white rounded-lg p-6 w-full max-w-md">
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-8 h-8 bg-teal-500 rounded-full flex items-center justify-center">
+              <div className="w-4 h-4 bg-white rounded-full"></div>
+            </div>
+            <h3 className="text-lg font-bold">Service Notice</h3>
+          </div>
+          <Button onClick={handleServiceNoticeClose} className="bg-transparent p-1">
+            <X className="w-5 h-5 text-gray-500" />
+          </Button>
+        </div>
+        
+        <div className="bg-orange-50 border-l-4 border-orange-400 p-4 mb-4">
+          <div className="flex items-center space-x-2 mb-2">
+            <span className="text-orange-600">⚠</span>
+            <h4 className="font-bold text-orange-800">Opay Bank Service Down</h4>
+          </div>
+          <p className="text-orange-700 text-sm">
+            We're currently experiencing issues with Opay bank transfers. Please use other banks for your payments.
+          </p>
+        </div>
+        
+        <p className="text-gray-600 text-sm mb-6">
+          We apologize for any inconvenience. All other banks are working normally and your payment will be processed immediately.
+        </p>
+        
+        <Button
+          onClick={handleServiceNoticeClose}
+          className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg"
+        >
+          I Understand
+        </Button>
+      </div>
+    </div>
+  );
 
   const renderStep = () => {
     switch (currentStep) {
@@ -245,6 +290,8 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
       <div className="p-6">
         {renderStep()}
       </div>
+
+      {showServiceNotice && renderServiceNotice()}
     </div>
   );
 };

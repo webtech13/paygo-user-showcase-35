@@ -14,6 +14,8 @@ import Profile from './Profile';
 import ProfileInfo from './ProfileInfo';
 import About from './About';
 import TransactionHistory from './TransactionHistory';
+import ReferEarn from './ReferEarn';
+import Upgrade from './Upgrade';
 
 const Dashboard = () => {
   const { user, logout } = useAuth();
@@ -71,13 +73,13 @@ const Dashboard = () => {
       title: "Winners",
       subtitle: "of K20 airtime",
       names: ["Patience Ng'andwe", "Phiri John"],
-      image: "/lovable-uploads/7db94283-0659-4709-a9ca-075e35c706eb.png"
+      image: "https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?auto=format&fit=crop&q=80&w=800&h=400"
     },
     {
       title: "Transact & Win", 
       subtitle: "Locations: Cheers Gold Crest Mall | Chrismar Hotel | Hot Spot Pub & Grill",
       description: "All customers who pay with PayGo in store will stand a chance to win great prizes.",
-      image: "https://images.unsplash.com/photo-1649972904349-6e44c42644a7?auto=format&fit=crop&q=80&w=800&h=400"
+      image: "https://images.unsplash.com/photo-1560472355-536de3962603?auto=format&fit=crop&q=80&w=800&h=400"
     },
     {
       title: "Mobile Money",
@@ -128,6 +130,17 @@ const Dashboard = () => {
 
   if (currentView === 'transaction-history') {
     return <TransactionHistory onBack={() => setCurrentView('dashboard')} />;
+  }
+
+  if (currentView === 'refer-earn') {
+    return <ReferEarn 
+      onBack={() => setCurrentView('dashboard')} 
+      onNavigate={(page) => setCurrentView(page)}
+    />;
+  }
+
+  if (currentView === 'upgrade') {
+    return <Upgrade onBack={() => setCurrentView('dashboard')} />;
   }
 
   return (
@@ -188,7 +201,10 @@ const Dashboard = () => {
           </div>
 
           <div className="flex space-x-4 mt-6">
-            <Button className="flex-1 bg-white text-purple-600 hover:bg-gray-100 rounded-full py-3 flex items-center justify-center space-x-2">
+            <Button 
+              onClick={() => setCurrentView('upgrade')}
+              className="flex-1 bg-white text-purple-600 hover:bg-gray-100 rounded-full py-3 flex items-center justify-center space-x-2"
+            >
               <CheckCircle className="w-5 h-5" />
               <span>Upgrade</span>
             </Button>

@@ -1,4 +1,3 @@
-
 import { Button } from '@/components/ui/button';
 import { ArrowLeft, User, HelpCircle, Info, DollarSign, ChevronRight, LogOut } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
@@ -77,7 +76,7 @@ const Profile = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (page
           </button>
 
           <button
-            onClick={() => onNavigate('earn-more')}
+            onClick={() => onNavigate('refer-earn')}
             className="w-full bg-white rounded-lg p-4 flex items-center justify-between shadow-sm border"
           >
             <div className="flex items-center space-x-3">
