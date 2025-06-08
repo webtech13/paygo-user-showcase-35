@@ -30,7 +30,7 @@ const Onboarding = () => {
     {
       icon: <CreditCard className="w-12 h-12 text-blue-600" />,
       title: "Get Your PAY ID",
-      description: "To withdraw funds, you'll need to purchase a PAY ID for ₦6,500. This is a one-time purchase that unlocks all features of the app."
+      description: "To withdraw funds, you'll need to purchase a PAY ID for ₦7,250. This is a one-time purchase that unlocks all features of the app."
     },
     {
       icon: <Phone className="w-12 h-12 text-green-600" />,
@@ -107,4 +107,4 @@ const Onboarding = () => {
   );
 };
 
-export default Onboarding;
+export default Ondashboard;
