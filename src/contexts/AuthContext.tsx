@@ -5,6 +5,8 @@ interface User {
   name: string;
   email: string;
   balance?: number;
+  referralBalance?: number;
+  totalReferrals?: number;
 }
 
 interface Transaction {
@@ -27,6 +29,8 @@ interface AuthContextType {
   completeOnboarding: () => void;
   completeWelcome: () => void;
   updateBalance: (amount: number) => void;
+  updateReferralBalance: (amount: number) => void;
+  addReferral: () => void;
   addTransaction: (transaction: Transaction) => void;
 }
 
@@ -48,7 +52,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
 
     // Register new user
-    const newUser = { name, email, balance: 180000 };
+    const newUser = { 
+      name, 
+      email, 
+      balance: 180000, 
+      referralBalance: 0, 
+      totalReferrals: 0 
+    };
     existingUsers.push(newUser);
     localStorage.setItem('paygo_users', JSON.stringify(existingUsers));
     
@@ -64,7 +74,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const userData = existingUsers.find((u: User) => u.email === email);
     
     if (userData) {
-      setUser({ ...userData, balance: userData.balance || 180000 });
+      setUser({ 
+        ...userData, 
+        balance: userData.balance || 180000,
+        referralBalance: userData.referralBalance || 0,
+        totalReferrals: userData.totalReferrals || 0
+      });
       const userTransactions = JSON.parse(localStorage.getItem(`paygo_transactions_${email}`) || '[]');
       setTransactions(userTransactions);
       setIsWelcomeComplete(true);
@@ -105,6 +120,43 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  const updateReferralBalance = (amount: number) => {
+    if (user) {
+      const newReferralBalance = (user.referralBalance || 0) - amount;
+      const updatedUser = { ...user, referralBalance: newReferralBalance };
+      setUser(updatedUser);
+      
+      // Update localStorage
+      const existingUsers = JSON.parse(localStorage.getItem('paygo_users') || '[]');
+      const userIndex = existingUsers.findIndex((u: User) => u.email === user.email);
+      if (userIndex !== -1) {
+        existingUsers[userIndex] = updatedUser;
+        localStorage.setItem('paygo_users', JSON.stringify(existingUsers));
+      }
+    }
+  };
+
+  const addReferral = () => {
+    if (user) {
+      const newReferralBalance = (user.referralBalance || 0) + 5000;
+      const newTotalReferrals = (user.totalReferrals || 0) + 1;
+      const updatedUser = { 
+        ...user, 
+        referralBalance: newReferralBalance, 
+        totalReferrals: newTotalReferrals 
+      };
+      setUser(updatedUser);
+      
+      // Update localStorage
+      const existingUsers = JSON.parse(localStorage.getItem('paygo_users') || '[]');
+      const userIndex = existingUsers.findIndex((u: User) => u.email === user.email);
+      if (userIndex !== -1) {
+        existingUsers[userIndex] = updatedUser;
+        localStorage.setItem('paygo_users', JSON.stringify(existingUsers));
+      }
+    }
+  };
+
   const addTransaction = (transaction: Transaction) => {
     if (user) {
       const newTransactions = [...transactions, transaction];
@@ -125,6 +177,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       completeOnboarding,
       completeWelcome,
       updateBalance,
+      updateReferralBalance,
+      addReferral,
       addTransaction
     }}>
       {children}

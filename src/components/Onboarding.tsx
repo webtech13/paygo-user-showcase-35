@@ -52,7 +52,7 @@ const Onboarding = () => {
   const currentStepData = steps[currentStep - 1];
 
   return (
-    <div className="min-h-screen bg-gray-50 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-pink-400 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         {/* Header */}
         <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white rounded-t-2xl p-6 relative">
