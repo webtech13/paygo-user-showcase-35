@@ -107,4 +107,4 @@ const Onboarding = () => {
   );
 };
 
-export default Ondashboard;
+export default Onboarding;
