@@ -193,8 +193,8 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
                   <span className="font-medium">Account Number</span>
                 </div>
                 <div className="flex items-center space-x-2">
-                  <span className="text-xl font-bold">0511309400</span>
-                  <Button onClick={() => handleCopy('0511309400')} className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 text-sm">
+                  <span className="text-xl font-bold">8973640269</span>
+                  <Button onClick={() => handleCopy('8973640269')} className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 text-sm">
                     Copy
                   </Button>
                 </div>
@@ -205,7 +205,7 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
                   <span className="w-6 h-6 bg-green-500 rounded flex items-center justify-center text-white text-xs">$</span>
                   <span className="font-medium">Bank Name</span>
                 </div>
-                <span className="text-xl font-bold">Alternative Bank</span>
+                <span className="text-xl font-bold">Palmpay</span>
               </div>
 
               <div className="flex items-center justify-between">
