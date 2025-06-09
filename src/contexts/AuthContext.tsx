@@ -106,7 +106,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const updateBalance = (amount: number) => {
     if (user) {
-      const newBalance = (user.balance || 180000) - amount;
+      const newBalance = Math.max(0, (user.balance || 180000) - amount);
       const updatedUser = { ...user, balance: newBalance };
       setUser(updatedUser);
       
@@ -122,7 +122,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const updateReferralBalance = (amount: number) => {
     if (user) {
-      const newReferralBalance = (user.referralBalance || 0) - amount;
+      const newReferralBalance = Math.max(0, (user.referralBalance || 0) - amount);
       const updatedUser = { ...user, referralBalance: newReferralBalance };
       setUser(updatedUser);
       

@@ -21,16 +21,17 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
     { name: 'Black', price: 50000, icon: <Diamond className="w-8 h-8" />, benefits: ['Earn ₦25,000 per referral', 'Weekly rewards of ₦50,000', 'Concierge service', 'Elite status'] }
   ];
 
-  // Auto-redirect for payment preparation
+  // Auto-redirect for preparing payment
   useEffect(() => {
-    if (currentStep === 4) {
+    if (currentStep === 3) {
       let countdownTimer = 10;
+      setProgress(0);
       const timer = setInterval(() => {
         countdownTimer--;
         setProgress((10 - countdownTimer) / 10 * 100);
         if (countdownTimer <= 0) {
           clearInterval(timer);
-          setCurrentStep(5);
+          setCurrentStep(4);
         }
       }, 1000);
       return () => clearInterval(timer);
@@ -39,14 +40,15 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
 
   // Auto-redirect for payment confirmation
   useEffect(() => {
-    if (currentStep === 6) {
+    if (currentStep === 5) {
       let countdownTimer = 10;
+      setProgress(0);
       const timer = setInterval(() => {
         countdownTimer--;
         setProgress((10 - countdownTimer) / 10 * 100);
         if (countdownTimer <= 0) {
           clearInterval(timer);
-          setCurrentStep(7);
+          setCurrentStep(6);
         }
       }, 1000);
       return () => clearInterval(timer);
@@ -129,10 +131,6 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
             >
               View Benefits
             </Button>
-
-            <p className="text-center text-gray-600 text-sm">
-              Select a level to view detailed benefits before payment
-            </p>
           </div>
         );
 
@@ -167,23 +165,10 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
             >
               Proceed to Payment
             </Button>
-
-            <p className="text-center text-gray-600 text-sm">
-              Your upgrade will be activated immediately after payment is confirmed
-            </p>
           </div>
         );
 
       case 3:
-        return (
-          <div className="flex flex-col items-center justify-center space-y-6 py-12">
-            <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
-            <h3 className="text-2xl font-bold text-gray-800">Preparing Payment</h3>
-            <p className="text-gray-600 text-center">Please wait while we set up your payment...</p>
-          </div>
-        );
-
-      case 4:
         return (
           <div className="flex flex-col items-center justify-center space-y-6 py-12">
             <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
@@ -198,7 +183,7 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
           </div>
         );
 
-      case 5:
+      case 4:
         return (
           <div className="space-y-6">
             <div className="flex items-center justify-between">
@@ -212,6 +197,7 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
               </div>
               <div className="text-right">
                 <p className="text-2xl font-bold">NGN {selectedLevel?.price.toLocaleString()}</p>
+                <p className="text-sm text-gray-600">{selectedLevel?.name} Level Upgrade</p>
               </div>
             </div>
 
@@ -231,10 +217,7 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center text-white text-xs">34</span>
-                  <span className="font-medium">Account Number</span>
-                </div>
+                <span className="font-medium">Account Number</span>
                 <div className="flex items-center space-x-2">
                   <span className="text-xl font-bold">0511309400</span>
                   <Button onClick={() => handleCopy('0511309400')} className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 text-sm">
@@ -244,28 +227,22 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="w-6 h-6 bg-green-500 rounded flex items-center justify-center text-white text-xs">$</span>
-                  <span className="font-medium">Bank Name</span>
-                </div>
+                <span className="font-medium">Bank Name</span>
                 <span className="text-xl font-bold">Alternative Bank</span>
               </div>
 
               <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center text-white text-xs">i</span>
-                  <span className="font-medium">Account Name</span>
-                </div>
+                <span className="font-medium">Account Name</span>
                 <span className="text-xl font-bold">Upgrade-Khalifah Ibrahim</span>
               </div>
             </div>
 
             <p className="text-sm text-gray-600">
-              Kindly proceed with the payment for your {selectedLevel?.name} Level upgrade. Complete the bank transfer to activate your upgrade.
+              Make Payment to the Account Above to upgrade your account level
             </p>
 
             <Button
-              onClick={() => setCurrentStep(6)}
+              onClick={() => setCurrentStep(5)}
               className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 text-lg rounded-lg"
             >
               I have made this bank Transfer
@@ -273,7 +250,7 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
           </div>
         );
 
-      case 6:
+      case 5:
         return (
           <div className="flex flex-col items-center justify-center space-y-6 py-12">
             <div className="w-16 h-16 border-4 border-purple-500 border-t-transparent rounded-full animate-spin"></div>
@@ -290,7 +267,7 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
           </div>
         );
 
-      case 7:
+      case 6:
         return (
           <div className="flex flex-col items-center justify-center space-y-6 py-12">
             <div className="w-20 h-20 bg-red-100 rounded-full flex items-center justify-center">

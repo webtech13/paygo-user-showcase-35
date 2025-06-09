@@ -4,21 +4,21 @@ import { Button } from '@/components/ui/button';
 import { useAuth } from '../contexts/AuthContext';
 import { X, Gift, CreditCard, Phone, Wallet, Zap } from 'lucide-react';
 
-const Onboarding = () => {
+const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
   const [currentStep, setCurrentStep] = useState(1);
-  const { user, completeOnboarding } = useAuth();
+  const { user } = useAuth();
   const totalSteps = 5;
 
   const handleNext = () => {
     if (currentStep < totalSteps) {
       setCurrentStep(currentStep + 1);
     } else {
-      completeOnboarding();
+      onComplete();
     }
   };
 
   const handleSkip = () => {
-    completeOnboarding();
+    onComplete();
   };
 
   const steps = [
@@ -99,7 +99,7 @@ const Onboarding = () => {
             onClick={handleNext}
             className="w-full bg-gradient-to-r from-purple-600 to-orange-400 text-white py-4 text-lg font-medium rounded-lg hover:opacity-90 transition-opacity"
           >
-            {currentStep === totalSteps ? 'Get Started →' : 'Next →'}
+            {currentStep === totalSteps ? 'Continue to Dashboard →' : 'Next →'}
           </Button>
         </div>
       </div>

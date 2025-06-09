@@ -17,13 +17,15 @@ import TransactionHistory from './TransactionHistory';
 import ReferEarn from './ReferEarn';
 import Upgrade from './Upgrade';
 import JoinCommunities from './JoinCommunities';
+import Onboarding from './Onboarding';
 
 const Dashboard = () => {
-  const { user, logout } = useAuth();
+  const { user, logout, isOnboardingComplete, completeOnboarding } = useAuth();
   const [balanceVisible, setBalanceVisible] = useState(true);
   const [api, setApi] = useState<CarouselApi>();
   const [currentView, setCurrentView] = useState('dashboard');
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
+  const [showOnboardingPopup, setShowOnboardingPopup] = useState(!isOnboardingComplete);
 
   useAutoSlide(api, 4000);
 
@@ -38,6 +40,11 @@ const Dashboard = () => {
 
   const cancelLogout = () => {
     setShowLogoutDialog(false);
+  };
+
+  const handleCompleteOnboarding = () => {
+    completeOnboarding();
+    setShowOnboardingPopup(false);
   };
 
   const quickActions = [
@@ -85,22 +92,22 @@ const Dashboard = () => {
 
   const promotions = [
     {
-      title: "Winners",
-      subtitle: "of K20 airtime",
-      names: ["Patience Ng'andwe", "Phiri John"],
-      image: "/lovable-uploads/7799d034-113d-44f2-867c-2a4cb8418056.png"
-    },
-    {
-      title: "PayGo",
-      subtitle: "The Best Website",
-      description: "PayGo - The best website paying in Nigeria",
-      image: "/lovable-uploads/d07504be-1a45-4e83-804c-99c950bde186.png"
+      title: "Transact & Win",
+      subtitle: "Great prizes await",
+      description: "All customers who pay with PayGo in store will stand a chance to win great prizes",
+      image: "/lovable-uploads/3ce9f1fb-b753-4102-8a22-a51a0cf90c72.png"
     },
     {
       title: "Mobile Money",
       subtitle: "AUGUST 27-28",
       description: "Special promotion for mobile money transactions",
-      image: "/lovable-uploads/bb43284d-6c1e-4357-bf8b-b2b3ef8d309c.png"
+      image: "/lovable-uploads/c33112b4-8b2b-4d2d-97d5-5db6d30d2254.png"
+    },
+    {
+      title: "Winners",
+      subtitle: "of K20 airtime",
+      names: ["Patience Ng'andwe", "Phiri John"],
+      image: "/lovable-uploads/df8c5190-45dd-42bb-a63b-2d0ac0fe8e40.png"
     }
   ];
 
@@ -164,6 +171,13 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-gray-50">
+      {/* Onboarding Popup */}
+      {showOnboardingPopup && (
+        <div className="fixed inset-0 z-50">
+          <Onboarding onComplete={handleCompleteOnboarding} />
+        </div>
+      )}
+
       {/* Sliding Banner */}
       <div className="bg-red-500 text-white p-3 overflow-hidden">
         <div className="animate-slide-banner whitespace-nowrap">
