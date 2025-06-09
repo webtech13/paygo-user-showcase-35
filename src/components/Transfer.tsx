@@ -15,11 +15,14 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
   const handleTransfer = () => {
     const transferAmount = parseFloat(amount);
     if (transferAmount > 0 && transferAmount <= (user?.balance || 0)) {
+      // Deduct from main balance
       updateBalance(transferAmount);
       addTransaction({
         type: 'Transfer',
         amount: transferAmount,
-        date: new Date().toLocaleDateString() + ' at ' + new Date().toLocaleTimeString()
+        date: new Date().toLocaleDateString() + ' at ' + new Date().toLocaleTimeString(),
+        recipientName,
+        bankName
       });
       setShowConfirmation(true);
       setTimeout(() => {

@@ -16,6 +16,8 @@ interface Transaction {
   phoneNumber?: string;
   plan?: any;
   date: string;
+  recipientName?: string;
+  bankName?: string;
 }
 
 interface AuthContextType {
@@ -51,7 +53,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       return { success: false, error: 'Email already exists, please login' };
     }
 
-    // Register new user
+    // Register new user - start with 180,000 in main balance
     const newUser = { 
       name, 
       email, 
@@ -106,6 +108,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const updateBalance = (amount: number) => {
     if (user) {
+      // Deduct from main balance only
       const newBalance = Math.max(0, (user.balance || 180000) - amount);
       const updatedUser = { ...user, balance: newBalance };
       setUser(updatedUser);

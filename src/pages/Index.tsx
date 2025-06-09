@@ -9,7 +9,7 @@ import Dashboard from '../components/Dashboard';
 import Onboarding from '../components/Onboarding';
 
 const AppContent = () => {
-  const { user, isOnboardingComplete, isWelcomeComplete, completeOnboarding } = useAuth();
+  const { user, isWelcomeComplete } = useAuth();
 
   if (!user) {
     return <AuthFlow />;
@@ -17,10 +17,6 @@ const AppContent = () => {
 
   if (!isWelcomeComplete) {
     return <Welcome />;
-  }
-
-  if (!isOnboardingComplete) {
-    return <Onboarding onComplete={completeOnboarding} />;
   }
 
   return <Dashboard />;

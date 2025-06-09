@@ -1,3 +1,4 @@
+
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from '@/components/ui/carousel';
@@ -170,7 +171,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-pink-400">
       {/* Onboarding Popup */}
       {showOnboardingPopup && (
         <div className="fixed inset-0 z-50">
@@ -221,9 +222,9 @@ const Dashboard = () => {
           <div className="flex items-center justify-between">
             <div>
               <h2 className="text-3xl font-bold">
-                {balanceVisible ? `₦${(user?.balance || 180000).toLocaleString()}.00` : '₦***,***.00'}
+                {balanceVisible ? `₦${(user?.balance || 0).toLocaleString()}.00` : '₦***,***.00'}
               </h2>
-              <p className="text-sm opacity-90">Weekly Rewards: ₦{(user?.balance || 180000).toLocaleString()}.00</p>
+              <p className="text-sm opacity-90">Weekly Rewards: ₦180,000.00</p>
             </div>
             <Button
               onClick={() => setBalanceVisible(!balanceVisible)}
@@ -270,7 +271,7 @@ const Dashboard = () => {
 
         {/* Promotions Carousel */}
         <div>
-          <h3 className="text-lg font-bold text-gray-800 mb-4">Current Promotions</h3>
+          <h3 className="text-lg font-bold text-white mb-4">Current Promotions</h3>
           <Carousel 
             className="w-full"
             opts={{
