@@ -171,7 +171,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-pink-400">
+    <div className="min-h-screen bg-gray-50">
       {/* Onboarding Popup */}
       {showOnboardingPopup && (
         <div className="fixed inset-0 z-50">
@@ -271,7 +271,7 @@ const Dashboard = () => {
 
         {/* Promotions Carousel */}
         <div>
-          <h3 className="text-lg font-bold text-white mb-4">Current Promotions</h3>
+          <h3 className="text-lg font-bold text-gray-800 mb-4">Current Promotions</h3>
           <Carousel 
             className="w-full"
             opts={{
