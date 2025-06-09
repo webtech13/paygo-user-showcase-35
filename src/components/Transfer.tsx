@@ -77,10 +77,6 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
       });
       setShowProcessing(false);
       setShowReceipt(true);
-      
-      setTimeout(() => {
-        onBack();
-      }, 3000);
     }
     return () => clearTimeout(timer);
   }, [showProcessing, countdown, amount, accountName, bankName, updateBalance, addTransaction, onBack]);
@@ -176,9 +172,15 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
             <p className="text-xs text-gray-500">
               Transaction processed securely by PayGo
             </p>
-            <p className="text-xs text-gray-400 mt-1">
+            <p className="text-xs text-gray-400 mt-1 mb-4">
               Keep this receipt for your records
             </p>
+            <Button
+              onClick={onBack}
+              className="w-full bg-green-600 hover:bg-green-700 text-white py-3 text-lg rounded-lg"
+            >
+              Back to Dashboard
+            </Button>
           </div>
         </div>
       </div>
@@ -187,19 +189,20 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
 
   if (showProcessing) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="bg-white rounded-lg p-8 shadow-lg text-center max-w-sm w-full mx-4">
-          <div className="w-20 h-20 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-6">
-            <span className="text-white text-3xl font-bold">{countdown}</span>
+      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-500 to-blue-600 flex items-center justify-center px-4">
+        <div className="bg-white rounded-2xl p-12 shadow-2xl text-center max-w-lg w-full">
+          <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
+            <span className="text-white text-5xl font-bold">{countdown}</span>
           </div>
-          <h3 className="text-2xl font-bold text-gray-800 mb-2">Processing Transfer...</h3>
-          <p className="text-gray-600 mb-4">Please wait while we process your transfer</p>
-          <div className="w-full bg-gray-200 rounded-full h-2">
+          <h3 className="text-3xl font-bold text-gray-800 mb-4">Processing Transfer...</h3>
+          <p className="text-gray-600 mb-8 text-lg">Please wait while we process your transfer</p>
+          <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
             <div 
-              className="bg-gradient-to-r from-purple-500 to-blue-600 h-2 rounded-full transition-all duration-1000" 
+              className="bg-gradient-to-r from-purple-500 to-blue-600 h-4 rounded-full transition-all duration-1000 shadow-sm" 
               style={{ width: `${((10 - countdown) / 10) * 100}%` }}
             ></div>
           </div>
+          <p className="text-gray-500 text-sm">Transfer will complete in {countdown} seconds</p>
         </div>
       </div>
     );
