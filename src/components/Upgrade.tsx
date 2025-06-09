@@ -233,7 +233,7 @@ const Upgrade = ({ onBack }: { onBack: () => void }) => {
 
               <div className="flex items-center justify-between">
                 <span className="font-medium">Account Name</span>
-                <span className="text-xl font-bold">Upgrade-Khalifah Ibrahim</span>
+                <span className="text-xl font-bold">Khalifah Ibrahim</span>
               </div>
             </div>
 
