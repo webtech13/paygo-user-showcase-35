@@ -172,7 +172,7 @@ const Dashboard = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-orange-100">
       {/* Onboarding Popup */}
       {showOnboardingPopup && (
         <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
@@ -191,7 +191,7 @@ const Dashboard = () => {
 
       {/* Header */}
       <div className="mx-2">
-        <div className="bg-purple-600 text-white p-4 rounded-b-3xl">
+        <div className="bg-purple-900 text-white p-4 rounded-b-3xl">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
