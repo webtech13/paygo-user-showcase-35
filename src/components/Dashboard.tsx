@@ -19,9 +19,10 @@ import ReferEarn from './ReferEarn';
 import Upgrade from './Upgrade';
 import JoinCommunities from './JoinCommunities';
 import Onboarding from './Onboarding';
+import ReferEarnPopup from './ReferEarnPopup';
 
 const Dashboard = () => {
-  const { user, logout, isOnboardingComplete, completeOnboarding } = useAuth();
+  const { user, logout, isOnboardingComplete, completeOnboarding, showReferPopup, hideReferPopup } = useAuth();
   const [balanceVisible, setBalanceVisible] = useState(true);
   const [api, setApi] = useState<CarouselApi>();
   const [currentView, setCurrentView] = useState('dashboard');
@@ -182,14 +183,14 @@ const Dashboard = () => {
       )}
 
       {/* Sliding Banner */}
-      <div className="bg-red-500 text-white p-3 overflow-hidden">
-        <div className="animate-slide-banner whitespace-nowrap">
+      <div className="bg-white p-3 overflow-hidden border-b">
+        <div className="animate-slide-banner whitespace-nowrap text-red-500">
           Dear user we're currently having issues with OPay bank kindly use another bank for your payment of pay Id
         </div>
       </div>
 
       {/* Header */}
-      <div className="bg-purple-600 text-white p-4 rounded-b-3xl">
+      <div className="bg-purple-500 text-white p-4 rounded-b-3xl">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
@@ -323,6 +324,11 @@ const Dashboard = () => {
             </div>
           </div>
         </div>
+      )}
+
+      {/* Refer & Earn Popup */}
+      {showReferPopup && (
+        <ReferEarnPopup onClose={hideReferPopup} />
       )}
     </div>
   );

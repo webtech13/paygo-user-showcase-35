@@ -28,8 +28,10 @@ interface AuthContextType {
   logout: () => void;
   isOnboardingComplete: boolean;
   isWelcomeComplete: boolean;
+  showReferPopup: boolean;
   completeOnboarding: () => void;
   completeWelcome: () => void;
+  hideReferPopup: () => void;
   updateBalance: (amount: number) => void;
   updateReferralBalance: (amount: number) => void;
   addReferral: () => void;
@@ -43,6 +45,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [transactions, setTransactions] = useState<Transaction[]>([]);
   const [isOnboardingComplete, setIsOnboardingComplete] = useState(false);
   const [isWelcomeComplete, setIsWelcomeComplete] = useState(false);
+  const [showReferPopup, setShowReferPopup] = useState(false);
 
   const register = (name: string, email: string, password: string) => {
     // Check if email already exists
@@ -86,6 +89,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setTransactions(userTransactions);
       setIsWelcomeComplete(true);
       setIsOnboardingComplete(true);
+      setShowReferPopup(true);
       return true;
     }
     return false;
@@ -96,10 +100,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setTransactions([]);
     setIsOnboardingComplete(false);
     setIsWelcomeComplete(false);
+    setShowReferPopup(false);
   };
 
   const completeOnboarding = () => {
     setIsOnboardingComplete(true);
+    setShowReferPopup(true);
+  };
+
+  const hideReferPopup = () => {
+    setShowReferPopup(false);
   };
 
   const completeWelcome = () => {
@@ -177,8 +187,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       logout,
       isOnboardingComplete,
       isWelcomeComplete,
+      showReferPopup,
       completeOnboarding,
       completeWelcome,
+      hideReferPopup,
       updateBalance,
       updateReferralBalance,
       addReferral,
