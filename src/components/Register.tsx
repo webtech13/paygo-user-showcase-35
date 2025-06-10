@@ -28,18 +28,29 @@ const Register = ({ onSwitchToLogin }: RegisterProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-orange-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white text-2xl font-bold py-4 px-8 rounded-lg mb-8 mx-auto w-fit overflow-hidden relative">
-            <div className="animate-slide-paygo">
+          <div className="text-right mb-4">
+            <a 
+              href="https://wa.me/2348037750681" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-purple-600 text-sm hover:underline"
+            >
+              Need Help?
+            </a>
+          </div>
+          
+          <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white text-2xl font-bold py-8 px-12 rounded-2xl mb-8 mx-auto w-fit overflow-hidden relative">
+            <div className="animate-slide-left text-white font-bold">
               PAYGO
             </div>
           </div>
         </div>
 
         <div className="bg-white rounded-2xl p-8 shadow-xl">
-          <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+          <h2 className="text-2xl font-bold text-center text-black mb-8">
             Register to continue
           </h2>
 
@@ -56,7 +67,7 @@ const Register = ({ onSwitchToLogin }: RegisterProps) => {
                 placeholder="Enter Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                className="w-full p-4 text-lg border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="w-full p-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-50"
                 required
               />
             </div>
@@ -67,7 +78,7 @@ const Register = ({ onSwitchToLogin }: RegisterProps) => {
                 placeholder="Enter Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-4 text-lg border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="w-full p-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-50"
                 required
               />
             </div>
@@ -78,20 +89,20 @@ const Register = ({ onSwitchToLogin }: RegisterProps) => {
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-4 text-lg border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="w-full p-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-50"
                 required
               />
             </div>
 
             <Button
               type="submit"
-              className="w-full bg-black text-white py-4 text-lg font-medium rounded-lg hover:bg-gray-800 transition-colors"
+              className="w-full bg-black text-white py-4 text-lg font-medium rounded-xl hover:bg-gray-800 transition-colors"
             >
               Register
             </Button>
           </form>
 
-          <p className="text-center mt-6 text-purple-600 cursor-pointer" onClick={onSwitchToLogin}>
+          <p className="text-center mt-6 text-purple-600 cursor-pointer hover:underline" onClick={onSwitchToLogin}>
             Already have an account? Login
           </p>
         </div>

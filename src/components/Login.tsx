@@ -30,14 +30,29 @@ const Login = ({ onSwitchToRegister }: LoginProps) => {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-purple-100 to-orange-100 flex items-center justify-center p-4">
       <div className="w-full max-w-md">
         <div className="text-center mb-8">
-          <p className="text-purple-600 text-sm mb-4">Need Help?</p>
+          <div className="text-right mb-4">
+            <a 
+              href="https://wa.me/2348037750681" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="text-purple-600 text-sm hover:underline"
+            >
+              Need Help?
+            </a>
+          </div>
+          
+          <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white text-2xl font-bold py-8 px-12 rounded-2xl mb-8 mx-auto w-fit overflow-hidden relative">
+            <div className="animate-slide-left text-white font-bold">
+              PAYGO
+            </div>
+          </div>
         </div>
 
         <div className="bg-white rounded-2xl p-8 shadow-xl">
-          <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+          <h2 className="text-2xl font-bold text-center text-black mb-8">
             Login to continue
           </h2>
 
@@ -54,7 +69,7 @@ const Login = ({ onSwitchToRegister }: LoginProps) => {
                 placeholder="Enter Email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
-                className="w-full p-4 text-lg border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="w-full p-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-50"
                 required
               />
             </div>
@@ -65,20 +80,20 @@ const Login = ({ onSwitchToRegister }: LoginProps) => {
                 placeholder="Enter Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
-                className="w-full p-4 text-lg border-gray-200 rounded-lg focus:ring-2 focus:ring-purple-500"
+                className="w-full p-4 text-lg border border-gray-300 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-gray-50"
                 required
               />
             </div>
 
             <Button
               type="submit"
-              className="w-full bg-black text-white py-4 text-lg font-medium rounded-lg hover:bg-gray-800 transition-colors"
+              className="w-full bg-black text-white py-4 text-lg font-medium rounded-xl hover:bg-gray-800 transition-colors"
             >
               Login
             </Button>
           </form>
 
-          <p className="text-center mt-6 text-purple-600 cursor-pointer" onClick={onSwitchToRegister}>
+          <p className="text-center mt-6 text-purple-600 cursor-pointer hover:underline" onClick={onSwitchToRegister}>
             Don't have an account? Register
           </p>
         </div>

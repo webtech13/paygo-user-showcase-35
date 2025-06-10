@@ -54,7 +54,7 @@ const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
   return (
     <>
       {/* Header */}
-      <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white rounded-t-2xl p-6 relative">
+      <div className="bg-purple-800 text-white rounded-t-2xl p-6 relative">
         <Button 
           onClick={handleSkip}
           className="absolute top-4 right-4 p-2 bg-transparent hover:bg-white/10 text-white"
@@ -96,7 +96,7 @@ const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
 
         <Button
           onClick={handleNext}
-          className="w-full bg-gradient-to-r from-purple-600 to-orange-400 text-white py-3 text-lg font-medium rounded-lg hover:opacity-90 transition-opacity"
+          className="w-full bg-purple-800 text-white py-3 text-lg font-medium rounded-lg hover:bg-purple-900 transition-colors"
         >
           {currentStep === totalSteps ? 'Continue to Dashboard →' : 'Next →'}
         </Button>

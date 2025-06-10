@@ -149,4 +149,14 @@
   .animate-slide-banner {
     animation: slide-banner 15s linear infinite;
   }
+
+  @keyframes slide-left {
+    0% { transform: translateX(100%); opacity: 1; }
+    50% { transform: translateX(-50%); opacity: 0.8; }
+    100% { transform: translateX(-200%); opacity: 0; }
+  }
+
+  .animate-slide-left {
+    animation: slide-left 3s ease-in-out infinite;
+  }
 }
