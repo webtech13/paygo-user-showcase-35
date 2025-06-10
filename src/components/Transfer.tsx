@@ -14,6 +14,7 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
   const [showProcessing, setShowProcessing] = useState(false);
   const [showReceipt, setShowReceipt] = useState(false);
   const [countdown, setCountdown] = useState(10);
+  const [showPaygoId, setShowPaygoId] = useState(false);
 
   const nigerianBanks = [
     'Access Bank', 'Guaranty Trust Bank', 'Zenith Bank', 'First Bank of Nigeria', 'United Bank for Africa', 
@@ -138,7 +139,17 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
               </div>
               <div>
                 <p className="text-gray-500 text-xs uppercase tracking-wide">PayGo ID</p>
-                <p className="font-semibold text-gray-800">{paygoId}</p>
+                <div className="flex items-center space-x-2">
+                  <p className="font-semibold text-gray-800">
+                    {showPaygoId ? paygoId : '••••••••'}
+                  </p>
+                  <button
+                    onClick={() => setShowPaygoId(!showPaygoId)}
+                    className="text-purple-600 text-sm font-medium"
+                  >
+                    {showPaygoId ? 'Hide' : 'Show'}
+                  </button>
+                </div>
               </div>
             </div>
 
@@ -189,20 +200,12 @@ const Transfer = ({ onBack }: { onBack: () => void }) => {
 
   if (showProcessing) {
     return (
-      <div className="min-h-screen bg-gradient-to-br from-purple-600 via-purple-500 to-blue-600 flex items-center justify-center px-4">
-        <div className="bg-white rounded-2xl p-12 shadow-2xl text-center max-w-lg w-full">
-          <div className="w-32 h-32 bg-gradient-to-br from-purple-500 to-blue-600 rounded-full flex items-center justify-center mx-auto mb-8 shadow-lg">
-            <span className="text-white text-5xl font-bold">{countdown}</span>
-          </div>
-          <h3 className="text-3xl font-bold text-gray-800 mb-4">Processing Transfer...</h3>
-          <p className="text-gray-600 mb-8 text-lg">Please wait while we process your transfer</p>
-          <div className="w-full bg-gray-200 rounded-full h-4 mb-4">
-            <div 
-              className="bg-gradient-to-r from-purple-500 to-blue-600 h-4 rounded-full transition-all duration-1000 shadow-sm" 
-              style={{ width: `${((10 - countdown) / 10) * 100}%` }}
-            ></div>
-          </div>
-          <p className="text-gray-500 text-sm">Transfer will complete in {countdown} seconds</p>
+      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+        <div className="text-center space-y-4">
+          <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+          <h3 className="text-xl font-bold">Processing Transfer...</h3>
+          <p className="text-gray-600">Please wait while we process your request</p>
+          <div className="text-3xl font-bold text-purple-600">{countdown}</div>
         </div>
       </div>
     );

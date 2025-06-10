@@ -174,8 +174,10 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50">
       {/* Onboarding Popup */}
       {showOnboardingPopup && (
-        <div className="fixed inset-0 z-50">
-          <Onboarding onComplete={handleCompleteOnboarding} />
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-50">
+          <div className="bg-white rounded-2xl max-w-md w-full overflow-hidden shadow-2xl">
+            <Onboarding onComplete={handleCompleteOnboarding} />
+          </div>
         </div>
       )}
 
@@ -187,7 +189,7 @@ const Dashboard = () => {
       </div>
 
       {/* Header */}
-      <div className="bg-purple-800 text-white p-4 rounded-b-3xl">
+      <div className="bg-purple-600 text-white p-4 rounded-b-3xl">
         <div className="flex items-center justify-between mb-6">
           <div className="flex items-center space-x-3">
             <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">

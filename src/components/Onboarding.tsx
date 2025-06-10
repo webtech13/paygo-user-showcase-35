@@ -52,58 +52,56 @@ const Onboarding = ({ onComplete }: { onComplete: () => void }) => {
   const currentStepData = steps[currentStep - 1];
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-600 to-pink-400 flex items-center justify-center p-4">
-      <div className="w-full max-w-md">
-        {/* Header */}
-        <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white rounded-t-2xl p-6 relative">
-          <Button 
-            onClick={handleSkip}
-            className="absolute top-4 right-4 p-2 bg-transparent hover:bg-white/10 text-white"
-          >
-            <X className="w-6 h-6" />
-          </Button>
-          
-          <div>
-            <h2 className="text-2xl font-bold mb-2">Welcome to PayGo, {user?.name}!</h2>
-            <p className="text-sm opacity-90 mb-4">Step {currentStep} of {totalSteps}</p>
-          </div>
-          
-          {/* Progress bar */}
-          <div className="flex space-x-1">
-            {Array.from({ length: totalSteps }, (_, i) => (
-              <div
-                key={i}
-                className={`flex-1 h-2 rounded-full ${
-                  i < currentStep ? 'bg-white' : 'bg-white/30'
-                }`}
-              />
-            ))}
-          </div>
+    <>
+      {/* Header */}
+      <div className="bg-gradient-to-r from-purple-600 to-orange-400 text-white rounded-t-2xl p-6 relative">
+        <Button 
+          onClick={handleSkip}
+          className="absolute top-4 right-4 p-2 bg-transparent hover:bg-white/10 text-white"
+        >
+          <X className="w-6 h-6" />
+        </Button>
+        
+        <div>
+          <h2 className="text-xl font-bold mb-2">Welcome to PayGo, {user?.name}!</h2>
+          <p className="text-sm opacity-90 mb-4">Step {currentStep} of {totalSteps}</p>
         </div>
-
-        {/* Content */}
-        <div className="bg-white rounded-b-2xl p-8 shadow-xl text-center">
-          <div className="mb-6 flex justify-center">
-            {currentStepData.icon}
-          </div>
-          
-          <h3 className="text-2xl font-bold text-gray-800 mb-4">
-            {currentStepData.title}
-          </h3>
-          
-          <p className="text-gray-600 mb-8 leading-relaxed">
-            {currentStepData.description}
-          </p>
-
-          <Button
-            onClick={handleNext}
-            className="w-full bg-gradient-to-r from-purple-600 to-orange-400 text-white py-4 text-lg font-medium rounded-lg hover:opacity-90 transition-opacity"
-          >
-            {currentStep === totalSteps ? 'Continue to Dashboard →' : 'Next →'}
-          </Button>
+        
+        {/* Progress bar */}
+        <div className="flex space-x-1">
+          {Array.from({ length: totalSteps }, (_, i) => (
+            <div
+              key={i}
+              className={`flex-1 h-2 rounded-full ${
+                i < currentStep ? 'bg-white' : 'bg-white/30'
+              }`}
+            />
+          ))}
         </div>
       </div>
-    </div>
+
+      {/* Content */}
+      <div className="bg-white rounded-b-2xl p-6 text-center">
+        <div className="mb-4 flex justify-center">
+          {currentStepData.icon}
+        </div>
+        
+        <h3 className="text-xl font-bold text-gray-800 mb-3">
+          {currentStepData.title}
+        </h3>
+        
+        <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+          {currentStepData.description}
+        </p>
+
+        <Button
+          onClick={handleNext}
+          className="w-full bg-gradient-to-r from-purple-600 to-orange-400 text-white py-3 text-lg font-medium rounded-lg hover:opacity-90 transition-opacity"
+        >
+          {currentStep === totalSteps ? 'Continue to Dashboard →' : 'Next →'}
+        </Button>
+      </div>
+    </>
   );
 };
 
