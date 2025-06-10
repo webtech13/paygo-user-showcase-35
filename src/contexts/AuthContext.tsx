@@ -1,5 +1,5 @@
 
-import React, { createContext, useContext, useState, ReactNode } from 'react';
+import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
 
 interface User {
   name: string;
@@ -47,6 +47,29 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isWelcomeComplete, setIsWelcomeComplete] = useState(false);
   const [showReferPopup, setShowReferPopup] = useState(false);
 
+  // Auto-login on app load
+  useEffect(() => {
+    const lastLoggedInUser = localStorage.getItem('paygo_current_user');
+    if (lastLoggedInUser) {
+      const existingUsers = JSON.parse(localStorage.getItem('paygo_users') || '[]');
+      const userData = existingUsers.find((u: User) => u.email === lastLoggedInUser);
+      
+      if (userData) {
+        setUser({ 
+          ...userData, 
+          balance: userData.balance || 180000,
+          referralBalance: userData.referralBalance || 0,
+          totalReferrals: userData.totalReferrals || 0
+        });
+        const userTransactions = JSON.parse(localStorage.getItem(`paygo_transactions_${lastLoggedInUser}`) || '[]');
+        setTransactions(userTransactions);
+        setIsWelcomeComplete(true);
+        setIsOnboardingComplete(true);
+        setShowReferPopup(true);
+      }
+    }
+  }, []);
+
   const register = (name: string, email: string, password: string) => {
     // Check if email already exists
     const existingUsers = JSON.parse(localStorage.getItem('paygo_users') || '[]');
@@ -71,6 +94,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setTransactions([]);
     setIsWelcomeComplete(false);
     setIsOnboardingComplete(false);
+    localStorage.setItem('paygo_current_user', email);
     return { success: true };
   };
 
@@ -90,6 +114,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsWelcomeComplete(true);
       setIsOnboardingComplete(true);
       setShowReferPopup(true);
+      localStorage.setItem('paygo_current_user', email);
       return true;
     }
     return false;
@@ -101,6 +126,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     setIsOnboardingComplete(false);
     setIsWelcomeComplete(false);
     setShowReferPopup(false);
+    localStorage.removeItem('paygo_current_user');
   };
 
   const completeOnboarding = () => {
