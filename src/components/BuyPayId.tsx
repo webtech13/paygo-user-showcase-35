@@ -157,76 +157,80 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
 
       case 3:
         return (
-          <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-3">
-                <div className="w-12 h-12 bg-blue-600 rounded-full flex items-center justify-center">
-                  <div className="w-6 h-6 bg-orange-400 rounded-full"></div>
-                </div>
-                <div>
-                  <p className="text-sm text-gray-600">{formData.email}</p>
-                </div>
-              </div>
-              <div className="text-right">
-                <p className="text-2xl font-bold">NGN 7,250</p>
-              </div>
+          <div className="bg-gray-50 min-h-screen -m-6">
+            <div className="pt-8 pb-6 text-center">
+              <h2 className="text-2xl font-bold text-gray-800 mb-2">Complete Payment</h2>
+              <p className="text-gray-600">Transfer ₦7,250 to the account below</p>
             </div>
 
-            <p className="text-center text-lg font-medium">
-              Complete this bank transfer to proceed
-            </p>
+            <div className="px-6 space-y-4">
+              {/* Email Section */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
+                <p className="text-blue-700 font-medium">Email: financial1240@gmail.com</p>
+              </div>
 
-            <div className="bg-gray-100 rounded-lg p-6 space-y-4">
-              <div className="flex items-center justify-between">
-                <span className="font-medium">Amount</span>
-                <div className="flex items-center space-x-2">
-                  <span className="text-xl font-bold">NGN 7,250</span>
-                  <Button onClick={() => handleCopy('7,250')} className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 text-sm">
-                    Copy
-                  </Button>
+              {/* Payment Details Card */}
+              <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+                {/* Amount */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                  <span className="text-gray-700 font-medium">Amount</span>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-xl font-bold text-gray-900">₦7,250</span>
+                    <Button 
+                      onClick={() => handleCopy('7250')} 
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 text-sm rounded-md flex items-center space-x-1"
+                    >
+                      <Copy className="w-3 h-3" />
+                      <span>Copy</span>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Bank Name */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                  <span className="text-gray-700 font-medium">Bank Name</span>
+                  <span className="text-lg font-bold text-gray-900">Moniepoint MFB</span>
+                </div>
+
+                {/* Account Number */}
+                <div className="flex items-center justify-between p-4 border-b border-gray-100">
+                  <span className="text-gray-700 font-medium">Account Number</span>
+                  <div className="flex items-center space-x-3">
+                    <span className="text-lg font-bold text-gray-900">8105415222</span>
+                    <Button 
+                      onClick={() => handleCopy('8105415222')} 
+                      className="bg-blue-500 hover:bg-blue-600 text-white px-3 py-1 text-sm rounded-md flex items-center space-x-1"
+                    >
+                      <Copy className="w-3 h-3" />
+                      <span>Copy</span>
+                    </Button>
+                  </div>
+                </div>
+
+                {/* Account Name */}
+                <div className="flex items-center justify-between p-4">
+                  <span className="text-gray-700 font-medium">Account Name</span>
+                  <span className="text-lg font-bold text-gray-900">PayGo-Samuel Kelly</span>
                 </div>
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center text-white text-xs">34</span>
-                  <span className="font-medium">Account Number</span>
-                </div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-xl font-bold">8973640269</span>
-                  <Button onClick={() => handleCopy('8973640269')} className="bg-orange-500 hover:bg-orange-600 text-white px-3 py-1 text-sm">
-                    Copy
-                  </Button>
-                </div>
+              {/* Instruction Box */}
+              <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mt-6">
+                <p className="text-blue-700 text-center">
+                  Make transfer and click "I have completed payment" below
+                </p>
               </div>
 
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="w-6 h-6 bg-green-500 rounded flex items-center justify-center text-white text-xs">$</span>
-                  <span className="font-medium">Bank Name</span>
-                </div>
-                <span className="text-xl font-bold">Palmpay</span>
-              </div>
-
-              <div className="flex items-center justify-between">
-                <div className="flex items-center space-x-2">
-                  <span className="w-6 h-6 bg-blue-500 rounded flex items-center justify-center text-white text-xs">i</span>
-                  <span className="font-medium">Account Name</span>
-                </div>
-                <span className="text-xl font-bold">Khalifah Ibrahim</span>
+              {/* Complete Payment Button */}
+              <div className="pt-4 pb-8">
+                <Button
+                  onClick={() => setCurrentStep(4)}
+                  className="w-full bg-green-500 hover:bg-green-600 text-white py-4 text-lg rounded-lg font-medium"
+                >
+                  I have completed payment
+                </Button>
               </div>
             </div>
-
-            <p className="text-sm text-gray-600">
-              Kindly proceed with the payment for your PAY ID. Complete the bank transfer to activate your PAY ID.
-            </p>
-
-            <Button
-              onClick={() => setCurrentStep(4)}
-              className="w-full bg-orange-500 hover:bg-orange-600 text-white py-4 text-lg rounded-lg"
-            >
-              I have made this bank Transfer
-            </Button>
           </div>
         );
 
@@ -296,7 +300,7 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
         </div>
       </div>
 
-      <div className="p-6">
+      <div className={currentStep === 3 ? '' : 'p-6'}>
         {renderStep()}
       </div>
 
