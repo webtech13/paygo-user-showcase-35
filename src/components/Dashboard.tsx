@@ -1,4 +1,3 @@
-
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from '@/components/ui/carousel';
@@ -51,27 +50,27 @@ const Dashboard = () => {
 
   const quickActions = [
     { 
-      icon: <CreditCard className="w-8 h-8 text-purple-600" />, 
+      icon: <div className="w-8 h-8 bg-yellow-500 rounded flex items-center justify-center text-white text-xs font-bold">💳</div>, 
       label: "Buy PAY ID",
       action: () => setCurrentView('buy-pay-id')
     },
     { 
-      icon: <div className="w-8 h-8 bg-gray-600 rounded"></div>, 
+      icon: <div className="w-8 h-8 bg-blue-400 rounded flex items-center justify-center text-white text-lg">📺</div>, 
       label: "Watch",
       action: () => window.open('https://t.me/bluepay247', '_blank')
     },
     { 
-      icon: <BarChart3 className="w-8 h-8 text-blue-600" />, 
+      icon: <div className="w-8 h-8 bg-green-500 rounded flex items-center justify-center text-white text-lg">📊</div>, 
       label: "Airtime",
       action: () => setCurrentView('airtime')
     },
     { 
-      icon: <Database className="w-8 h-8 text-red-600" />, 
+      icon: <div className="w-8 h-8 bg-purple-600 rounded flex items-center justify-center text-white text-lg">💾</div>, 
       label: "Data",
       action: () => setCurrentView('data')
     },
     { 
-      icon: <Headphones className="w-8 h-8 text-gray-600" />, 
+      icon: <Headphones className="w-8 h-8 text-gray-700" />, 
       label: "Support",
       action: () => setCurrentView('support')
     },
@@ -86,7 +85,7 @@ const Dashboard = () => {
       action: () => setCurrentView('earn-more')
     },
     { 
-      icon: <User className="w-8 h-8 text-gray-600" />, 
+      icon: <User className="w-8 h-8 text-gray-700" />, 
       label: "Profile",
       action: () => setCurrentView('profile')
     }
