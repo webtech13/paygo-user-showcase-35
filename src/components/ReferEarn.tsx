@@ -12,7 +12,7 @@ const ReferEarn = ({ onBack, onNavigate }: { onBack: () => void; onNavigate: (pa
   const [countdown, setCountdown] = useState(10);
   const [progress, setProgress] = useState(0);
 
-  const referralLink = "https://bestearnig9jaupdatespaygo.netlify.app";
+  const referralLink = "https://paygo-financial-pro-25.vercel.app";
   const referralMessage = `Join PayGo and start earning! Get ₦5,000 welcome bonus when you sign up using my link: ${referralLink}`;
 
   // Auto-redirect for withdrawal processing
