@@ -35,7 +35,7 @@ const Login = ({ onSwitchToRegister }: LoginProps) => {
         <div className="text-center mb-8">
           <div className="text-right mb-4">
             <a 
-              href="https://wa.me/2348037750681" 
+              href="https://wa.me/2348102687670" 
               target="_blank" 
               rel="noopener noreferrer"
               className="text-purple-600 text-sm hover:underline"
