@@ -4,11 +4,11 @@ import { ArrowLeft, Share, ExternalLink } from 'lucide-react';
 
 const EarnMore = ({ onBack }: { onBack: () => void }) => {
   const handleStartReferring = () => {
-    window.open('https://bestearnig9jaupdatespaygo.netlify.app', '_blank');
+    window.open('https://paygo-financial-pro-25.vercel.app', '_blank');
   };
 
   const handleSignUpNow = () => {
-    window.open('https://bluepay-299.vercel.app', '_blank');
+    window.open('https://bluepay-28.vercel.app/', '_blank');
   };
 
   return (
