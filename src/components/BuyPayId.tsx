@@ -68,18 +68,18 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
           </Button>
         </div>
         
-        <div className="bg-orange-50 border-l-4 border-orange-400 p-4 mb-4">
+        <div className="bg-green-50 border-l-4 border-green-400 p-4 mb-4">
           <div className="flex items-center space-x-2 mb-2">
-            <span className="text-orange-600">⚠</span>
-            <h4 className="font-bold text-orange-800">Opay Bank Service Down</h4>
+            <span className="text-green-600">✓</span>
+            <h4 className="font-bold text-green-800">Opay Bank Service Restored</h4>
           </div>
-          <p className="text-orange-700 text-sm">
-            We're currently experiencing issues with Opay bank transfers. Please use other banks for your payments.
+          <p className="text-green-700 text-sm">
+            Opay bank service is now working perfectly. All bank transfers are functioning normally.
           </p>
         </div>
         
         <p className="text-gray-600 text-sm mb-6">
-          We apologize for any inconvenience. All other banks are working normally and your payment will be processed immediately.
+          You can now use Opay and all other banks for your payments. All transactions will be processed immediately.
         </p>
         
         <Button
