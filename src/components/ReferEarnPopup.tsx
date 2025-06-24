@@ -1,5 +1,6 @@
+
 import { Button } from '@/components/ui/button';
-import { Gift, X } from 'lucide-react';
+import { X } from 'lucide-react';
 
 const ReferEarnPopup = ({ onClose }: { onClose: () => void }) => {
   const handleShareOnWhatsApp = () => {
@@ -18,37 +19,37 @@ const ReferEarnPopup = ({ onClose }: { onClose: () => void }) => {
             onClick={onClose}
             className="absolute top-3 right-3 p-2 bg-transparent hover:bg-white/10 text-white"
           >
-            <X className="w-5 h-5" />
+            <X className="w-4 h-4" />
           </Button>
           <div className="flex items-center space-x-3 text-white">
-            <div className="w-8 h-8 flex items-center justify-center">
-              <div className="w-6 h-6 bg-white rounded flex items-center justify-center">
-                <span className="text-purple-600 text-xs">⚡</span>
-              </div>
+            <div className="w-6 h-6 flex items-center justify-center">
+              <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/>
+              </svg>
             </div>
-            <span className="text-lg font-medium">Refer & Earn</span>
+            <span className="text-sm font-medium">Refer & Earn</span>
           </div>
         </div>
 
         {/* Content */}
         <div className="p-6 text-center">
           <div className="mb-4 flex justify-center">
-            <div className="w-16 h-16 bg-yellow-100 rounded-full flex items-center justify-center">
-              <Gift className="w-8 h-8 text-yellow-600" />
+            <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
+              <div className="text-yellow-600 text-lg">🎁</div>
             </div>
           </div>
           
-          <h3 className="text-2xl font-bold text-gray-800 mb-3">
+          <h3 className="text-xl font-bold text-gray-800 mb-3">
             Earn ₦5,000!
           </h3>
           
-          <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+          <p className="text-gray-600 mb-6 text-xs leading-relaxed">
             Invite your friends using your referral link. Earn ₦5,000 for each successful signup. Get a discount on your PAY ID purchase.
           </p>
 
           <Button
             onClick={handleShareOnWhatsApp}
-            className="w-full bg-green-500 hover:bg-green-600 text-white py-4 text-lg font-medium rounded-lg mb-4"
+            className="w-full bg-green-500 hover:bg-green-600 text-white py-3 text-sm font-medium rounded-lg mb-4"
           >
             <div className="flex items-center justify-center space-x-2">
               <span>📱</span>
@@ -56,7 +57,7 @@ const ReferEarnPopup = ({ onClose }: { onClose: () => void }) => {
             </div>
           </Button>
 
-          <p className="text-gray-500 text-sm">
+          <p className="text-gray-500 text-xs">
             Start earning and save on PAY ID costs today!
           </p>
         </div>
