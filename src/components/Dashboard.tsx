@@ -1,9 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/button';
-import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious, CarouselApi } from '@/components/ui/carousel';
+
+import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
-import { useAutoSlide } from '../hooks/useAutoSlide';
-import { Bell, Eye, EyeOff, ArrowUp, CheckCircle, CreditCard, BarChart3, Database, Headphones, Globe, DollarSign, User } from 'lucide-react';
 import BuyPayId from './BuyPayId';
 import Transfer from './Transfer';
 import Airtime from './Airtime';
@@ -19,16 +16,18 @@ import Upgrade from './Upgrade';
 import JoinCommunities from './JoinCommunities';
 import Onboarding from './Onboarding';
 import ReferEarnPopup from './ReferEarnPopup';
+import DashboardHeader from './dashboard/DashboardHeader';
+import BalanceCard from './dashboard/BalanceCard';
+import QuickActions from './dashboard/QuickActions';
+import PromotionsCarousel from './dashboard/PromotionsCarousel';
+import LogoutDialog from './dashboard/LogoutDialog';
+import ServiceBanner from './dashboard/ServiceBanner';
 
 const Dashboard = () => {
-  const { user, logout, isOnboardingComplete, completeOnboarding, showReferPopup, hideReferPopup } = useAuth();
-  const [balanceVisible, setBalanceVisible] = useState(true);
-  const [api, setApi] = useState<CarouselApi>();
+  const { logout, isOnboardingComplete, completeOnboarding, showReferPopup, hideReferPopup } = useAuth();
   const [currentView, setCurrentView] = useState('dashboard');
   const [showLogoutDialog, setShowLogoutDialog] = useState(false);
   const [showOnboardingPopup, setShowOnboardingPopup] = useState(!isOnboardingComplete);
-
-  useAutoSlide(api, 4000);
 
   const handleLogout = () => {
     setShowLogoutDialog(true);
@@ -47,70 +46,6 @@ const Dashboard = () => {
     completeOnboarding();
     setShowOnboardingPopup(false);
   };
-
-  const quickActions = [
-    { 
-      icon: <div className="w-6 h-6 bg-yellow-500 rounded flex items-center justify-center text-white text-xs font-bold">💳</div>, 
-      label: "Buy PAY ID",
-      action: () => setCurrentView('buy-pay-id')
-    },
-    { 
-      icon: <div className="w-6 h-6 bg-blue-400 rounded flex items-center justify-center text-white text-xs">📺</div>, 
-      label: "Watch",
-      action: () => window.open('https://t.me/bluepay247', '_blank')
-    },
-    { 
-      icon: <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center text-white text-xs">📊</div>, 
-      label: "Airtime",
-      action: () => setCurrentView('airtime')
-    },
-    { 
-      icon: <div className="w-6 h-6 bg-purple-600 rounded flex items-center justify-center text-white text-xs">💾</div>, 
-      label: "Data",
-      action: () => setCurrentView('data')
-    },
-    { 
-      icon: <Headphones className="w-6 h-6 text-gray-700" />, 
-      label: "Support",
-      action: () => setCurrentView('support')
-    },
-    { 
-      icon: <Globe className="w-6 h-6 text-blue-500" />, 
-      label: "Group",
-      action: () => setCurrentView('join-communities')
-    },
-    { 
-      icon: <DollarSign className="w-6 h-6 text-yellow-600" />, 
-      label: "Earn More",
-      action: () => setCurrentView('earn-more')
-    },
-    { 
-      icon: <User className="w-6 h-6 text-gray-700" />, 
-      label: "Profile",
-      action: () => setCurrentView('profile')
-    }
-  ];
-
-  const promotions = [
-    {
-      title: "Transact & Win",
-      subtitle: "Great prizes await",
-      description: "All customers who pay with PayGo in store will stand a chance to win great prizes",
-      image: "/lovable-uploads/3ce9f1fb-b753-4102-8a22-a51a0cf90c72.png"
-    },
-    {
-      title: "Mobile Money",
-      subtitle: "AUGUST 27-28",
-      description: "Special promotion for mobile money transactions",
-      image: "/lovable-uploads/c33112b4-8b2b-4d2d-97d5-5db6d30d2254.png"
-    },
-    {
-      title: "Winners",
-      subtitle: "of K20 airtime",
-      names: ["Patience Ng'andwe", "Phiri John"],
-      image: "/lovable-uploads/df8c5190-45dd-42bb-a63b-2d0ac0fe8e40.png"
-    }
-  ];
 
   if (currentView === 'buy-pay-id') {
     return <BuyPayId onBack={() => setCurrentView('dashboard')} />;
@@ -181,151 +116,43 @@ const Dashboard = () => {
         </div>
       )}
 
-      {/* Sliding Banner */}
-      <div className="bg-white p-3 overflow-hidden border-b">
-        <div className="animate-slide-banner whitespace-nowrap text-red-500">
-          Dear user we're currently having issues with OPay bank kindly use another bank for your payment of pay Id
-        </div>
-      </div>
+      {/* Service Banner */}
+      <ServiceBanner />
 
       {/* Header */}
-      <div className="mx-2">
-        <div className="bg-purple-900 text-white p-4 rounded-b-3xl">
-        <div className="flex items-center justify-between mb-6">
-          <div className="flex items-center space-x-3">
-            <div className="w-10 h-10 bg-white rounded-full flex items-center justify-center">
-              <span className="text-purple-600 font-bold text-lg">
-                {user?.name?.charAt(0).toUpperCase()}
-              </span>
-            </div>
-            <div>
-              <h1 className="text-xl font-bold">Hi, {user?.name} 👋</h1>
-              <p className="text-sm opacity-90">Welcome back!</p>
-            </div>
-          </div>
-          <div className="flex items-center space-x-3">
-            <Button 
-              onClick={() => setCurrentView('transaction-history')}
-              className="bg-white/20 hover:bg-white/30 p-2 rounded-full"
-            >
-              <Bell className="w-6 h-6" />
-            </Button>
-            <Button 
-              onClick={handleLogout}
-              className="bg-white/20 hover:bg-white/30 text-white px-4 py-2 rounded-lg text-sm"
-            >
-              Logout
-            </Button>
-          </div>
-        </div>
+      <DashboardHeader 
+        onTransactionHistory={() => setCurrentView('transaction-history')}
+        onLogout={handleLogout}
+      />
 
-        {/* Balance Card */}
-        <div className="bg-white/10 backdrop-blur-sm rounded-2xl p-6">
-          <p className="text-sm opacity-90 mb-2">Your Balance</p>
-          <div className="flex items-center justify-between">
-            <div>
-              <h2 className="text-3xl font-bold">
-                {balanceVisible ? `₦${(user?.balance || 0).toLocaleString()}.00` : '₦***,***.00'}
-              </h2>
-              <p className="text-sm opacity-90">Weekly Rewards: ₦180,000.00</p>
-            </div>
-            <Button
-              onClick={() => setBalanceVisible(!balanceVisible)}
-              className="bg-white/20 hover:bg-white/30 p-2 rounded-full"
-            >
-              {balanceVisible ? <EyeOff className="w-5 h-5" /> : <Eye className="w-5 h-5" />}
-            </Button>
-          </div>
-
-          <div className="flex space-x-4 mt-6">
-            <Button 
-              onClick={() => setCurrentView('upgrade')}
-              className="flex-1 bg-white text-purple-600 hover:bg-gray-100 rounded-full py-3 flex items-center justify-center space-x-2"
-            >
-              <CheckCircle className="w-5 h-5" />
-              <span>Upgrade</span>
-            </Button>
-            <Button 
-              onClick={() => setCurrentView('transfer')}
-              className="flex-1 bg-white text-purple-600 hover:bg-gray-100 rounded-full py-3 flex items-center justify-center space-x-2"
-            >
-              <ArrowUp className="w-5 h-5" />
-              <span>Transfer</span>
-            </Button>
-          </div>
-        </div>
-        </div>
-      </div>
+      {/* Balance Card */}
+      <BalanceCard 
+        onUpgrade={() => setCurrentView('upgrade')}
+        onTransfer={() => setCurrentView('transfer')}
+      />
 
       {/* Quick Actions */}
       <div className="p-6">
-        <div className="grid grid-cols-4 gap-6 mb-8">
-          {quickActions.map((action, index) => (
-            <div key={index} className="text-center">
-              <button 
-                onClick={action.action}
-                className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow mb-3 w-full flex items-center justify-center"
-              >
-                {action.icon}
-              </button>
-              <p className="text-sm text-gray-600 font-medium">{action.label}</p>
-            </div>
-          ))}
-        </div>
+        <QuickActions 
+          onBuyPayId={() => setCurrentView('buy-pay-id')}
+          onAirtime={() => setCurrentView('airtime')}
+          onData={() => setCurrentView('data')}
+          onSupport={() => setCurrentView('support')}
+          onJoinCommunities={() => setCurrentView('join-communities')}
+          onEarnMore={() => setCurrentView('earn-more')}
+          onProfile={() => setCurrentView('profile')}
+        />
 
         {/* Promotions Carousel */}
-        <div>
-          <h3 className="text-lg font-bold text-gray-800 mb-4">Current Promotions</h3>
-          <Carousel 
-            className="w-full"
-            opts={{
-              align: "start",
-              loop: true,
-            }}
-            setApi={setApi}
-          >
-            <CarouselContent>
-              {promotions.map((promotion, index) => (
-                <CarouselItem key={index}>
-                  <div className="relative rounded-2xl overflow-hidden h-[240px]">
-                    <img 
-                      src={promotion.image} 
-                      alt={promotion.title}
-                      className="w-full h-full object-cover"
-                    />
-                  </div>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-            <CarouselPrevious className="left-2" />
-            <CarouselNext className="right-2" />
-          </Carousel>
-        </div>
+        <PromotionsCarousel />
       </div>
 
       {/* Logout Confirmation Dialog */}
-      {showLogoutDialog && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
-          <div className="bg-white rounded-lg p-6 w-full max-w-sm">
-            <h3 className="text-lg font-bold text-gray-800 mb-4">Confirm Logout</h3>
-            <p className="text-gray-600 mb-6">Are you sure you want to logout?</p>
-            <div className="flex space-x-3">
-              <Button
-                onClick={cancelLogout}
-                className="flex-1 bg-gray-200 hover:bg-gray-300 text-gray-800 py-3 rounded-lg"
-              >
-                No
-              </Button>
-              <Button
-                onClick={confirmLogout}
-                className="flex-1 bg-red-500 hover:bg-red-600 text-white py-3 rounded-lg"
-              >
-                Yes
-              </Button>
-            </div>
-          </div>
-        </div>
-      )}
+      <LogoutDialog 
+        isOpen={showLogoutDialog}
+        onConfirm={confirmLogout}
+        onCancel={cancelLogout}
+      />
 
       {/* Refer & Earn Popup */}
       {showReferPopup && (
