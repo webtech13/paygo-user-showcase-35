@@ -55,17 +55,17 @@ const Dashboard = () => {
       action: () => setCurrentView('buy-pay-id')
     },
     { 
-      icon: <div className="w-6 h-6 bg-blue-400 rounded flex items-center justify-center text-white text-sm">📺</div>, 
+      icon: <div className="w-6 h-6 bg-blue-400 rounded flex items-center justify-center text-white text-xs">📺</div>, 
       label: "Watch",
       action: () => window.open('https://t.me/bluepay247', '_blank')
     },
     { 
-      icon: <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center text-white text-sm">📊</div>, 
+      icon: <div className="w-6 h-6 bg-green-500 rounded flex items-center justify-center text-white text-xs">📊</div>, 
       label: "Airtime",
       action: () => setCurrentView('airtime')
     },
     { 
-      icon: <div className="w-6 h-6 bg-purple-600 rounded flex items-center justify-center text-white text-sm">💾</div>, 
+      icon: <div className="w-6 h-6 bg-purple-600 rounded flex items-center justify-center text-white text-xs">💾</div>, 
       label: "Data",
       action: () => setCurrentView('data')
     },
@@ -259,16 +259,16 @@ const Dashboard = () => {
 
       {/* Quick Actions */}
       <div className="p-6">
-        <div className="grid grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-4 gap-6 mb-8">
           {quickActions.map((action, index) => (
             <div key={index} className="text-center">
               <button 
                 onClick={action.action}
-                className="bg-white rounded-2xl p-4 shadow-sm hover:shadow-md transition-shadow mb-2 w-full"
+                className="bg-white rounded-2xl p-5 shadow-sm hover:shadow-md transition-shadow mb-3 w-full flex items-center justify-center"
               >
                 {action.icon}
               </button>
-              <p className="text-xs text-gray-600">{action.label}</p>
+              <p className="text-sm text-gray-600 font-medium">{action.label}</p>
             </div>
           ))}
         </div>
