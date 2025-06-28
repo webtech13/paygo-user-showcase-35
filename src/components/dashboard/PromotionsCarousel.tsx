@@ -38,7 +38,7 @@ const PromotionsCarousel = () => {
 
   return (
     <div>
-      <h3 className="text-lg font-bold text-gray-800 mb-4">Current Promotions</h3>
+      <h3 className="text-base font-bold text-gray-800 mb-3">Current Promotions</h3>
       <Carousel 
         className="w-full"
         opts={{
@@ -50,7 +50,7 @@ const PromotionsCarousel = () => {
         <CarouselContent>
           {promotions.map((promotion, index) => (
             <CarouselItem key={index}>
-              <div className="relative rounded-2xl overflow-hidden h-[240px]">
+              <div className="relative rounded-2xl overflow-hidden h-[200px]">
                 <img 
                   src={promotion.image} 
                   alt={promotion.title}
