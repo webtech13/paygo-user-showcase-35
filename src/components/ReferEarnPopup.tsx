@@ -4,7 +4,7 @@ import { X } from 'lucide-react';
 
 const ReferEarnPopup = ({ onClose }: { onClose: () => void }) => {
   const handleShareOnWhatsApp = () => {
-    const referralLink = 'https://paygo-financial-pro-71-b0b4.vercel.app';
+    const referralLink = 'https://paygo-officialuser.vercel.app';
     const message = `Join PayGo and earn money! Use my referral link: ${referralLink}`;
     const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(message)}`;
     window.open(whatsappUrl, '_blank');
