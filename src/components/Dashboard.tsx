@@ -1,4 +1,3 @@
-
 import { useState } from 'react';
 import { useAuth } from '../contexts/AuthContext';
 import BuyPayId from './BuyPayId';
@@ -132,7 +131,7 @@ const Dashboard = () => {
       />
 
       {/* Quick Actions */}
-      <div className="p-6">
+      <div className="pt-6">
         <QuickActions 
           onBuyPayId={() => setCurrentView('buy-pay-id')}
           onAirtime={() => setCurrentView('airtime')}
@@ -144,7 +143,9 @@ const Dashboard = () => {
         />
 
         {/* Promotions Carousel */}
-        <PromotionsCarousel />
+        <div className="px-4">
+          <PromotionsCarousel />
+        </div>
       </div>
 
       {/* Logout Confirmation Dialog */}
