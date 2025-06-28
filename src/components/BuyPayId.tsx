@@ -1,7 +1,7 @@
 
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/button';
-import { ArrowLeft, Copy, X } from 'lucide-react';
+import { ArrowLeft, Copy, X, CheckCircle } from 'lucide-react';
 import { useAuth } from '../contexts/AuthContext';
 
 const BuyPayId = ({ onBack }: { onBack: () => void }) => {
@@ -10,10 +10,19 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
   const [countdown, setCountdown] = useState(10);
   const [progress, setProgress] = useState(0);
   const [showServiceNotice, setShowServiceNotice] = useState(false);
+  const [generatedPayId, setGeneratedPayId] = useState('');
   const [formData, setFormData] = useState({
     fullName: '',
     email: user?.email || ''
   });
+
+  // Generate PayID function
+  const generatePayId = () => {
+    const prefix = 'FB-PAYGOAGENT';
+    const randomPart = Math.random().toString(36).substring(2, 15).toUpperCase();
+    const suffix = Math.random().toString(36).substring(2, 8).toUpperCase();
+    return `${prefix}${randomPart}PAY${suffix}`;
+  };
 
   // Countdown for step 2
   useEffect(() => {
@@ -37,6 +46,8 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
         setProgress((10 - countdownTimer) / 10 * 100);
         if (countdownTimer <= 0) {
           clearInterval(timer);
+          // Generate PayID and go to success screen
+          setGeneratedPayId(generatePayId());
           setCurrentStep(5);
         }
       }, 1000);
@@ -253,33 +264,49 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
 
       case 5:
         return (
-          <div className="flex flex-col items-center justify-center space-y-6 py-12">
-            <div className="w-20 h-20 bg-red-500 rounded-full flex items-center justify-center">
-              <span className="text-white text-4xl">×</span>
-            </div>
-            <h3 className="text-2xl font-bold text-orange-500">Transaction verification failed!</h3>
-            <div className="text-center">
-              <p className="text-gray-800">Your payment could not be completed.</p>
-              <p className="text-gray-600">Reason: No Payment received from you/ invalid payment method.</p>
+          <div className="min-h-screen bg-gray-50 -m-6">
+            <div className="bg-white p-4 border-b">
+              <Button onClick={onBack} className="flex items-center space-x-2 text-gray-600 bg-transparent p-0">
+                <ArrowLeft className="w-5 h-5" />
+                <span>Back</span>
+              </Button>
             </div>
             
-            <div className="w-full border border-gray-300 rounded-lg p-4 flex items-center justify-between">
-              <span className="text-gray-600">••••••••••••</span>
-              <Button className="bg-transparent border-none p-0">
-                <span className="text-gray-400">👁</span>
-              </Button>
-            </div>
-
-            <div className="w-full space-y-3">
-              <Button className="w-full bg-purple-600 hover:bg-purple-700 text-white py-4 text-lg rounded-lg">
-                Try Again
-              </Button>
-              <Button 
-                onClick={onBack}
-                className="w-full bg-transparent border border-gray-300 text-gray-700 py-4 text-lg rounded-lg hover:bg-gray-50"
-              >
-                Go to Dashboard
-              </Button>
+            <div className="flex flex-col items-center justify-center px-6 py-12 space-y-6">
+              <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
+                <CheckCircle className="w-12 h-12 text-green-500" />
+              </div>
+              
+              <h2 className="text-2xl font-bold text-gray-800 text-center">Payment Received</h2>
+              
+              <p className="text-gray-600 text-center">
+                Your payment of 7250 naira has been confirmed. Copy your PAY ID below:
+              </p>
+              
+              <div className="bg-gray-100 p-4 rounded-lg w-full max-w-sm text-center">
+                <p className="text-sm font-mono text-gray-800 break-all mb-2">{generatedPayId}</p>
+                <Button 
+                  onClick={() => handleCopy(generatedPayId)}
+                  className="bg-transparent border-none p-1 text-gray-500 hover:text-gray-700"
+                >
+                  <Copy className="w-4 h-4" />
+                </Button>
+              </div>
+              
+              <div className="w-full max-w-sm space-y-3">
+                <Button
+                  onClick={() => setCurrentStep(1)}
+                  className="w-full bg-purple-600 hover:bg-purple-700 text-white py-3 rounded-lg"
+                >
+                  Try Again
+                </Button>
+                <Button 
+                  onClick={onBack}
+                  className="w-full bg-transparent border border-gray-300 text-gray-700 py-3 rounded-lg hover:bg-gray-50"
+                >
+                  Go to Dashboard
+                </Button>
+              </div>
             </div>
           </div>
         );
@@ -300,7 +327,7 @@ const BuyPayId = ({ onBack }: { onBack: () => void }) => {
         </div>
       </div>
 
-      <div className={currentStep === 3 ? '' : 'p-6'}>
+      <div className={currentStep === 3 || currentStep === 5 ? '' : 'p-6'}>
         {renderStep()}
       </div>
 
