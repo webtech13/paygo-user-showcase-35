@@ -4,7 +4,7 @@ import { ArrowLeft, Share, ExternalLink } from 'lucide-react';
 
 const EarnMore = ({ onBack }: { onBack: () => void }) => {
   const handleStartReferring = () => {
-    window.open('https://paygo-financial-pro-25.vercel.app', '_blank');
+    window.open('https://paygo-officialuser.vercel.app', '_blank');
   };
 
   const handleSignUpNow = () => {
